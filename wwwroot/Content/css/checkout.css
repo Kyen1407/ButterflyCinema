@@ -1,0 +1,156 @@
+* {
+    box-sizing: border-box;
+}
+
+.checkout_main {
+    width: 100%;
+    padding: 2%;
+}
+
+.thanks {
+    text-align: center;
+    margin-bottom: 5px;
+    font-style: italic;
+    font-weight: bold;
+}
+
+/* .bg {
+    width: 80%;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    background-color: #cf0000;
+}
+.bg p {
+    color: #fff;
+} */
+.vd {
+    padding-top: 30px;
+    display: flex;
+    align-items: center;
+    height: max-content;
+}
+
+.payment {
+    width: 80%;
+    /* height: 500px; */
+    /* margin-top: 30px; */
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    float: right;
+}
+
+    .payment .row div {
+        margin-top: 6px;
+    }
+
+    .payment [type=text], select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        resize: vertical;
+        float: right;
+    }
+
+label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+    font-size: 15px;
+}
+/* input[type=submit] {
+    background-color: #04AA6D;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+}   */
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+.detail {
+    background-color: #f2f2f2;
+    border: 1px gainsboro solid;
+    padding: 10px;
+    margin-left: 50px;
+    /* margin-top: 30px; */
+}
+
+.movie-name {
+    display: flex;
+    height: 200px;
+}
+
+    .movie-name p {
+        margin-top: auto;
+        margin-bottom: auto;
+        font-weight: bold;
+    }
+
+.information {
+    height: max-content;
+    margin-top: 20px;
+    background-color: #fff;
+    box-shadow: 3px 3px 3px #39080869;
+    padding: 15px;
+}
+
+    .information p {
+        font-size: 16px;
+        margin-bottom: 5px;
+        padding-bottom: 5px;
+        border-bottom: 1px #b4aeae69 solid;
+    }
+
+.bill {
+    font-size: 25px !important;
+    margin-top: 15px;
+    color: #cf0000;
+    font-weight: bold;
+}
+
+    .bill b {
+        font-size: 18px !important;
+        color: #000 !important;
+    }
+
+.btn-checkout {
+    width: 100%;
+}
+
+    .btn-checkout button {
+        width: 46%;
+        margin-top: 20px;
+        background-color: #cf0000;
+        color: #fff;
+    }
+
+        .btn-checkout button:hover {
+            background-color: #ed4e4e;
+            color: #fff;
+        }
+
+        .btn-checkout button:focus {
+            background-color: #ed4e4e;
+            color: #fff;
+        }
+
+.selectedSeat {
+    border: 1px solid #cf0000;
+    color: #cf0000;
+    padding: 3px;
+    border-radius: 3px;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 3px;
+    margin-bottom: 3px;
+}

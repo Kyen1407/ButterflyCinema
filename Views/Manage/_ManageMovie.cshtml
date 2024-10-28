@@ -1,0 +1,167 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+}
+
+<button class="btn btn-lg btn-success add-film" data-toggle="modal" data-target="#modal-addFilm">Thêm phim mới</button>
+
+<form action="" class="search-form">
+    <div class="form-group has-feedback">
+        <label for="search" class="sr-only">Search</label>
+        <input type="text" class="form-control" name="search" id="search" placeholder="Tìm tên phim">
+        <span class="glyphicon glyphicon-search form-control-feedback"></span>
+    </div>
+</form>
+
+
+<table class="table" border="1">
+    <thead>
+        <tr>
+            <th style="width: 5%;">STT</th>
+            <th>Mã phim</th>
+            <th>Tên phim</th>
+            <th>Thể loại</th>
+            <th>Quốc gia</th>
+            <th>Khởi chiếu</th>
+            <th>Thời lượng</th>
+            <th>Giới hạn tuổi</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @{
+            int indexMovie = 1;
+        }
+        @foreach (var movie in ViewBag.Movies)
+        {
+            <tr>
+                <th scope="row" style="text-align: center;">@indexMovie</th>
+                <td>@movie.MovieId</td>
+                <td>@movie.MovieName</td>
+                <td>@movie.Genre</td>
+                <td>@movie.Country</td>
+                <td>@movie.ReleaseDate</td>
+                <td>@movie.Duration</td>
+                <td>@movie.AgeRestriction</td>
+                <td>
+                    <a asp-action="EditMovie" asp-route-id="@movie.MovieId" class="btn btn-warning">Chỉnh sửa</a>
+                    <a asp-action="ConfirmDeleteMovie" asp-route-id="@movie.MovieId" class="btn btn-danger">Xóa</a>
+                </td>
+            </tr>
+
+            indexMovie++;
+        }
+    </tbody>
+</table>
+
+<!-- Modal thêm phim -->
+<div class="modal fade" id="modal-addFilm" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="col-3">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="col-6 text-center">
+                    <h2>THÊM PHIM MỚI</h2>
+                    <p class="modal-title">Nhập đầy đủ thông tin phim</p>
+                </div>
+
+                <form asp-action="CreateMovie" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group mb-3">
+                                <label class="form-label">Poster Url</label>
+                                <input type="text" name="poster" id="poster" class="form-control" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="movieId">Mã phim</label>
+                                <input type="text" name="MovieId" id="movieId" class="form-control" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="movieName">Tên phim</label>
+                                <input type="text" name="MovieName" id="movieName" class="form-control" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="time">Thời lượng (phút)</label>
+                                <input type="number" name="Duration" id="time" class="form-control" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="day">Ngày khởi chiếu</label>
+                                <input type="date" name="ReleaseDate" id="day" class="form-control" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="ageRestriction">Giới hạn tuổi</label>
+                                <input type="number" name="AgeRestriction" id="ageRestriction" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group mb-3">
+                                <label class="form-label">Trailer Url</label>
+                                <input type="text" name="trailer" id="trailer" class="form-control" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="Genre">Thể loại</label>
+                                <input type="text" name="Genre" id="Genre" class="form-control" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="actor">Diễn viên</label>
+                                <input type="text" name="Actor" id="actor" class="form-control" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="director">Đạo diễn</label>
+                                <input type="text" name="Director" id="director" class="form-control" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="nation">Quốc gia</label>
+                                <input type="text" name="Country" id="nation" class="form-control" required>
+                            </div>
+                            @*<div class="form-group mb-3">
+                                <label class="form-label" for="nation">Quốc gia</label>
+                                <select class="form-control" name="Country" id="nation" required>
+                                    <option value="">-- Chọn quốc gia --</option>
+                                    <option value="Việt Nam">Việt Nam</option>
+                                    <option value="Hàn Quốc">Hàn Quốc</option>
+                                    <option value="Trung Quốc">Trung Quốc</option>
+                                    <option value="Mỹ">Mỹ</option>
+                                    <option value="Thái Lan">Thái Lan</option>
+                                </select>
+                            </div>*@
+
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="language">Định dạng ngôn ngữ</label>
+                                <input type="text" name="LanguageOption" id="language" class="form-control" required>
+                            </div>
+                            @*<div class="form-group mb-3">
+                                <label class="form-label" for="language">Định dạng ngôn ngữ</label>
+                                <select class="form-control" name="LanguageOption" id="language" required>
+                                    <option value="">-- Định dạng ngôn ngữ --</option>
+                                    <option value="Lồng tiếng">Lồng tiếng</option>
+                                    <option value="Phụ đề">Phụ đề</option>
+                                </select>
+                            </div>*@
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="summary">Mô tả</label>
+                                <textarea name="Description" class="form-control" rows="4" id="summary" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-primary" value="Reset">Tải lại</button>
+                        <button type="submit" class="btn btn-danger">Thêm phim</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

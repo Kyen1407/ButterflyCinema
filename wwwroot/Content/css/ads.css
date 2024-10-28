@@ -1,0 +1,154 @@
+/*
+Template Name:Cinema Zone
+File: Layout CSS
+Author: Templates On Web
+Author URI: http://templateonweb.com/
+Licence: <a href="http://www.templateonweb.com/terms.php?v=content&contentid=152">Website Template Licence</a>
+*/
+/*********************center_event****************/
+.main {
+  margin-left: 7%;
+  margin-top: 30px;
+}
+
+.nav-tabs{
+	border:none;
+	margin-bottom:25px;
+	margin-left: 40%;
+}
+.nav-tabs li{
+	font-size:20px;
+}
+.nav-tabs li a{
+   color:#666;
+   padding:15px 50px;
+   border-radius:0;
+}
+.nav-tabs li a:hover{
+   color:#fff;
+   font-weight:bold;
+   background:#cf0000;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus{
+   color:#fff;
+   font-weight:bold;
+   background:#cf0000;  
+}
+
+/* Thêm kiểu cho phần tử bạn muốn cuộn mượt */
+#targetSection {
+  scroll-behavior: smooth;
+}
+
+
+.click_left {
+  margin-top: 5px;
+  height: 400px;
+}
+
+.click_left_bg {
+  width: 70%;
+  height: 380px;
+	background-color: #d7d4d4;
+  position: absolute;
+  margin-left: 30%;
+  border-bottom-right-radius: 20%;
+}
+
+.click_left_inner img {
+  box-shadow: 5px 5px 5px #292828;
+}
+
+/* .click_left_inner img:hover{
+  opacity:0.8;  
+} */
+
+.click_left_inner_1 h2{
+  margin-top: 20px;
+}
+
+.click_left_inner_1 h2 a:hover{
+  color:#000;
+}
+  
+.click_left_inner_1 .para_1{
+  margin-top:15px;
+}
+
+.click_left_inner_1 .para_1 a{
+  font-weight:bold;
+  color:#000;
+}
+
+.click_left_inner_1 .para_1 a:hover{
+  color:#372f42;
+}
+  
+  /*********************center_event_end****************/
+  
+  
+@media screen and (max-width : 767px){
+  .center_events_main{
+    padding-top:50px;
+    padding-bottom:50px; 
+  }
+
+  .click_left_inner_1 {
+    text-align:center;
+    margin-top:10px; 
+  }
+  
+  .click_left_inner_2 {
+    text-align:center;
+  }
+  
+  .click_left_inner_2 ul li{
+    border:none; 
+  }
+  
+  .click_right {
+    text-align:center;
+    margin-top:20px; 
+  }
+  
+  .click_right_1 {
+    text-align:center;
+  }
+  
+  .booking_1 h3{
+    width:100%;
+    text-align:center; 
+  }
+}
+  
+@media (min-width:768px) and (max-width:991px) {
+  #events .nav-tabs{
+    margin-left:10px;
+    margin-right:10px;
+  }
+  
+  #events .nav-tabs li a{
+    font-size:14px;
+    padding:10px 6px;
+  }
+  
+  .click_left .space_left{
+    padding-left:15px; 
+  }
+  
+  .booking_1 h3 {
+    width:47%;
+    margin:0px 15px 15px 15px;
+  }
+}
+
+@media (min-width:992px) and (max-width:1200px) {
+  .click_left .space_left{
+    padding-left:15px!important; 
+  }
+  
+  .booking_1 h3 {
+    width:35%;
+    margin:0px 15px 15px 15px;
+  }
+}

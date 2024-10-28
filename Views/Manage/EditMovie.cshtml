@@ -1,0 +1,156 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    Layout = null;
+}
+
+@model ButterflyCinema.Models.Movie
+
+@{
+    ViewData["Title"] = "Chỉnh sửa Phim";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BUTTERFLY CINEMA</title>
+    <link rel="icon" href="~/Content/img/logo6.png" type="image/x-icon">
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/css/manage.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Paytone+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Monoton&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.all.min.js"></script>
+    <script src="~/Content/js/jquery-2.1.1.min.js"></script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+
+    <style>
+        form {
+            width: 40%;
+            margin-left: 30%;
+        }
+
+        h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Chỉnh sửa phim</h2>
+
+        <form asp-action="EditMovie" method="post">
+            <input type="hidden" asp-for="MovieId" />
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group mb-3" style="width: 100%;">
+                        <label asp-for="Poster" class="form-label" for="Poster">Poster Url</label>
+                        <input asp-for="Poster" type="text" name="Poster" id="Poster" class="form-control" required>
+                    </div>
+
+                    <div class="form-group mb-3" style="width: 100%;">
+                        <label asp-for="MovieName" class="form-label" for="MovieName">Tên phim</label>
+                        <input asp-for="MovieName" type="text" name="MovieName" id="MovieName" class="form-control" required>
+                    </div>
+
+                    <div class="form-group mb-3" style="width: 100%;">
+                        <label asp-for="Genre" class="form-label" for="Genre">Thể loại</label>
+                        <input asp-for="Genre" type="text" name="Genre" id="Genre" class="form-control" required>
+                    </div>
+
+                    <div class="form-group mb-3" style="width: 100%;">
+                        <label asp-for="Director" class="form-label" for="Director">Đạo diễn</label>
+                        <input asp-for="Director" type="text" name="Director" id="Director" class="form-control" required>
+                    </div>
+
+                    @*<div class="form-group mb-3" style="width: 100%">
+                        <label asp-for="LanguageOption" class="form-label" for="language">Định dạng ngôn ngữ</label>
+                        <select asp-for="LanguageOption" class="form-control" name="LanguageOption" id="language" required>
+                            <option value="Lồng tiếng">Lồng tiếng</option>
+                            <option value="Phụ đề">Phụ đề</option>
+                        </select>
+                    </div>*@
+                    <div class="form-group mb-3" style="width: 100%;">
+                        <label asp-for="LanguageOption" class="form-label" for="language">Định dạng ngôn ngữ</label>
+                        <input asp-for="LanguageOption" type="text" name="LanguageOption" id="language" class="form-control">
+                    </div>
+
+                    <div class="form-group mb-3" style="width: 100%;">
+                        <label asp-for="Duration" class="form-label" for="Duration">Thời lượng</label>
+                        <input asp-for="Duration" type="number" name="Duration" id="Duration" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group mb-3" style="width: 100%;">
+                        <label asp-for="Trailer" class="form-label" for="Trailer">Trailer Url</label>
+                        <input asp-for="Trailer" type="text" name="Trailer" id="Trailer" class="form-control" required>
+                    </div>
+
+                    <div class="form-group mb-3" style="width: 100%;">
+                        <label asp-for="Actor" class="form-label" for="Actor">Diễn viên</label>
+                        <input asp-for="Actor" type="text" name="Actor" id="Actor" class="form-control" required>
+                    </div>
+
+                    <div class="form-group mb-3" style="width: 100%;">
+                        <label asp-for="AgeRestriction" class="form-label" for="AgeRestriction">Giới hạn tuổi</label>
+                        <input asp-for="AgeRestriction" type="number" name="AgeRestriction" id="AgeRestriction" class="form-control" required>
+                    </div>
+
+                    @{
+                        // Kiểm tra nếu ReleaseDate có giá trị
+                        var releaseDateValue = Model.ReleaseDate.HasValue
+                            ? Model.ReleaseDate.Value.ToDateTime(TimeOnly.MinValue).ToString("yyyy-MM-dd")
+                            : string.Empty; // Nếu không có giá trị, để trống
+                    }
+
+                    <div class="form-group mb-3" style="width: 100%;">
+                        <label asp-for="ReleaseDate" class="form-label" for="ReleaseDate">Khởi chiếu</label>
+                        <input type="date" class="form-control" id="ReleaseDate" name="ReleaseDate" value="@releaseDateValue" required>
+                    </div>
+
+                    @*<div class="form-group mb-3" style="width: 100%;">
+                        <label class="form-label" for="nation">Quốc gia</label>
+                        <select asp-for="Country" class="form-control" name="Country" id="nation" required>
+                            <option value="Việt Nam">Việt Nam</option>
+                            <option value="Hàn Quốc">Hàn Quốc</option>
+                            <option value="Trung Quốc">Trung Quốc</option>
+                            <option value="Thái Lan">Thái Lan</option>
+                        </select>
+                    </div>*@
+                    <div class="form-group mb-3" style="width: 100%;">
+                        <label asp-for="Country" class="form-label" for="Country">Quốc gia</label>
+                        <input asp-for="Country" type="text" name="Country" id="Country" class="form-control">
+                    </div>
+
+                    <div class="form-group mb-3" style="width: 100%;">
+                        <label asp-for="Rating" class="form-label" for="Rating">Đánh giá</label>
+                        <input asp-for="Rating" type="text" name="Rating" id="Rating" class="form-control" readonly>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label asp-for="Description" for="summary">Mô tả</label>
+                        <textarea asp-for="Description" name="Description" class="form-control" rows="4" id="summary" required></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Lưu" class="btn btn-primary" />
+                <a asp-action="Manage" asp-route-tab="film" class="btn btn-secondary">Quay lại</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

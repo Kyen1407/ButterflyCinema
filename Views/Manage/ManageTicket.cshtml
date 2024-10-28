@@ -1,0 +1,123 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BUTTERFLY CINEMA</title>
+    <link rel="icon" href="~/Content/img/logo6.png" type="image/x-icon">
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/css/manage.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Paytone+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Monoton&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.all.min.js"></script>
+    <script src="~/Content/js/jquery-2.1.1.min.js"></script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+
+    <style>
+        select {
+            margin-top: 2%;
+            width: 30% !important;
+            float: right;
+            margin-bottom: 2%;
+        }
+    </style>
+</head>
+
+<body>
+    <section id="top">
+        <div class="container">
+            <div class="row">
+                <div class="top_2_left">
+                    <h1>BUTTERFLY CINEMA <span>A BUTTERFLY NEVER DIES</span></h1>
+                    <span style="font-size: 30px;">QUẢN LÝ VÉ</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container" id="modal-ticket" role="dialog">
+        <a asp-action="Manage" asp-route-tab="showtime" class="btn btn-success">Quay lại</a>
+
+        <select id="movieSelect" name="MovieId" class="form-control" required>
+            <option value="" disabled selected>Trạng thái</option>
+            <option value="booked">Đã đặt</option>
+            <option value="notBooked">Chưa đặt</option>
+        </select>
+
+        <table id="ticketTable" class="table" border="1">
+            <thead>
+                <tr>
+                    <th style="width: 5%;">STT</th>
+                    <th>Mã loại vé</th>
+                    <th>Số ghế</th>
+                    <th>Tên phim</th>
+                    <th>Ngày chiếu</th>
+                    <th>Giờ chiếu</th>
+                    <th>Giá vé</th>
+                    <th>Trạng thái</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @{
+                    var index = 1;
+                    var movies = ViewBag.Movies as List<Movie>;
+                    var seats = ViewBag.Seats as List<Seat>;
+                    var tickets = ViewBag.Tickets as List<Ticket>;
+                    var showtimes = ViewBag.Showtimes as List<Showtime>;
+                }
+                @foreach (var ticket in tickets)
+                {
+                    var showtime = showtimes.FirstOrDefault(s => s.ShowtimeId == ticket.ShowtimeId);
+                    var movie = showtime != null ? movies.FirstOrDefault(m => m.MovieId == showtime.MovieId) : null;
+                    <tr class="ticket-row" data-booked="@ticket.IsBooked">
+                        <th scope="row" style="text-align: center;">@index</th>
+                        <td>@ticket.TicketId</td>
+                        <td>@seats.FirstOrDefault(s => s.SeatId == ticket.SeatId)?.SeatName</td>
+                        <td>@movie?.MovieName</td>
+                        <td>@showtime.ShowDate</td>
+                        <td>@showtime.StartTime</td>
+                        <td>@ticket.TicketPrice</td>
+                        <td>@(ticket.IsBooked.GetValueOrDefault() ? "Đã đặt" : "Chưa đặt")</td>
+                    </tr>
+
+                    index++;
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <script src="~/Content/js/home.js"></script>
+
+    <script>
+        document.getElementById('movieSelect').addEventListener('change', function () {
+            const selectedValue = this.value;
+            const rows = document.querySelectorAll('#ticketTable .ticket-row');
+
+            rows.forEach(row => {
+                const isBooked = row.getAttribute('data-booked') === 'True'; // Hoặc 'True'/'False' tùy thuộc vào kiểu dữ liệu
+
+                if (selectedValue === 'booked' && !isBooked) {
+                    row.style.display = 'none'; // Ẩn vé chưa đặt
+                } else if (selectedValue === 'notBooked' && isBooked) {
+                    row.style.display = 'none'; // Ẩn vé đã đặt
+                } else {
+                    row.style.display = ''; // Hiện vé
+                }
+            });
+        });
+    </script>
+</body>
+</html>

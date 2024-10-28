@@ -1,0 +1,111 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@{
+    ViewBag.Title = "Contact";
+}
+
+<link href="~/Content/css/contact.css" rel="stylesheet">
+
+<section id="header" class="clearfix cd-secondary-nav">
+    <div class="container">
+        <div class="row">
+            <div class="header_main clearfix">
+                <nav class="navbar navbar-default">
+                    <div class="navbar-header">
+                        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">BUTTERFLY CINEMA <span>A BUTTERFLY NEVER DIES</span></a>
+                    </div>
+
+
+                    <div class="collapse navbar-collapse js-navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a class="font_tag" href="/Home/Index">TRANG CHỦ</a></li>
+                            <li><a class="font_tag" href="/Movies/Movies">PHIM</a></li>
+                            <li><a class="font_tag" href="/Pricing/Pricing">RẠP VÀ GIÁ</a></li>
+                            <li><a class="font_tag" href="/Ads/Ads">KHUYẾN MÃI</a></li>
+                            <li><a class="font_tag" href="/Event/Event">BẢNG TIN</a></li>
+                            <li><a class="font_tag border_none_1 active_tag" href="/Contact/Contact">LIÊN HỆ</a></li>
+                        </ul>
+                    </div>
+                    <!-- /.nav-collapse -->
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="center" class="center_contact clearfix">
+    <div class="center_contact_main clearfix">
+        <!-- VIỆT NAM -->
+        <iframe id="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1867260.5688206145!2d106.0479329924713!3d16.27419239434978!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d19f7c975d08e1%3A0x72ee8dd790b06295!2sVietnam!5e0!3m2!1sen!2sin!4v1631105419938" width="100%" height="450px" frameborder="0" style="border:0" allowfullscreen=""></iframe>
+</section>
+
+<section id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="contact_1 clearfix">
+                @{
+                    var cinema1 = 0;
+                    var cinema2 = 1;
+                }
+                @for (int row = 0; row < ViewBag.Cinemas.Count/2; row++) {
+                    <div class="contact_1_inner_1 clearfix">
+                        <div class="col-sm-6">
+                            <div onclick="srcChange('@ViewBag.Cinemas[cinema1].AddressUrl')" class="contact_1_inner_1_left clearfix">
+                                <h4><b>BUTTERFLY CINEMA</b><br> @ViewBag.Cinemas[cinema1].CinemaName</h4>
+                                <p class="para_1">
+                                    Địa chỉ & Liên hệ: <br> <span>1900 1407 2002</span> <br>
+                                    <span>@ViewBag.Cinemas[cinema1].CinemaAddress</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div onclick="srcChange('@ViewBag.Cinemas[cinema2].AddressUrl')" class="contact_1_inner_1_left clearfix">
+                                <h4><b>BUTTERFLY CINEMA</b><br> @ViewBag.Cinemas[cinema2].CinemaName</h4>
+                                <p class="para_1">
+                                    Địa chỉ & Liên hệ: <br> <span>1900 1407 2002</span> <br>
+                                    <span>@ViewBag.Cinemas[cinema2].CinemaAddress</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    cinema1 += 2;
+                    cinema2 += 2;
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact_last">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="contact_last_1 clearfix">
+                    <h2>Góp ý</h2>
+                    <div class="col-sm-6 space_left">
+                        <p>Họ và tên</p>
+                        <input class="form-control" placeholder="Nhập họ tên" type="text">
+                    </div>
+                    <div class="col-sm-6 space_left">
+                        <p>Email</p>
+                        <input class="form-control" placeholder="Nhập Email" type="text">
+                    </div>
+                    <p>Nội dung</p>
+                    <textarea class="form-control form_1" placeholder="Nhập nội dung"></textarea>
+                    <input class="submit_button" type="submit" name="submit" value="GỬI">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

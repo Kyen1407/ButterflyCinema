@@ -1,0 +1,60 @@
+﻿@model ConfirmDelete
+
+@{
+    Layout = null;
+}
+
+@{
+    ViewData["Title"] = "Xác Nhận Xóa";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BUTTERFLY CINEMA</title>
+    <link rel="icon" href="~/Content/img/logo6.png" type="image/x-icon">
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.all.min.js"></script>
+    <script src="~/Content/js/jquery-2.1.1.min.js"></script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+
+    <style>
+        .container {
+            text-align: center;
+        }
+
+        .objectName {
+            font-weight: bold;
+            display: inline;
+        }
+
+        p {
+            display: inline;
+        }
+
+        input {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Xác nhận xóa @Model.ObjectType</h2>
+
+        <form asp-action="@Model.Action" method="post">
+            <div>
+                <p>Bạn có chắc chắn muốn xóa @Model.ObjectType <p class="objectName">@Model.ObjectName</p>?</p>
+            </div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <input type="submit" value="Xóa" class="btn btn-danger" />
+                <a asp-action="Manage" asp-route-tab=@Model.TabName class="btn btn-secondary">Quay lại</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

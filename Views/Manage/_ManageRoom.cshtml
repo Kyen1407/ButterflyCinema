@@ -1,0 +1,149 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+}
+
+<button class="btn btn-lg btn-success add-room" data-toggle="modal" data-target="#modal-addRoom">Thêm phòng</button>
+<div class="dropdown dropdownCinema">
+    <button class="btn btn-lg dropdown-toggle" type="button" id="about-us" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span id="selectedCinemainRoom">Chọn rạp quản lý</span>
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="about-us">
+        <li><a href="#" onclick="showAllRoom('selectedCinemainRoom', 'roomsTable')">Tất cả</a></li>
+        @foreach (var cinema in ViewBag.Cinemas)
+        {
+            <li><a href="#" onclick="filterRooms('@cinema.CinemaId', '@cinema.CinemaName', 'selectedCinemainRoom', 'roomsTable')">@cinema.CinemaName</a></li>
+        }
+    </ul>
+</div>
+
+<table id="roomsTable" class="table" border="1">
+    <thead>
+        <tr>
+            <th style="width: 5%;">STT</th>
+            <th>Mã phòng</th>
+            <th>Số phòng</th>
+            <th>Số lượng ghế</th>
+            <th>Tên rạp</th>
+            <th>Trạng thái</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @{
+            int indexRoom = 1;
+            var cinemas = ViewBag.Cinemas as List<Cinema>;
+        }
+
+        @foreach (var room in ViewBag.Rooms)
+        {
+            <tr data-cinema-id="@room.CinemaId">
+                <th class="room-number" scope="row" style="text-align: center;">@indexRoom</th>
+                <td>@room.RoomId</td>
+                <td>@room.RoomName</td>
+                <td>@room.TotalSeats</td>
+                <td>
+                    @{
+                        // Tìm tên rạp tương ứng với CinemaId
+                        var cinema = cinemas.FirstOrDefault(c => c.CinemaId == room.CinemaId);
+                    }
+                    @cinema?.CinemaName
+                </td>
+                <td>@(room.RoomStatus != null && room.RoomStatus[0] ? "Phòng đang dùng" : "Phòng trống")</td>
+                <td>
+                    <a asp-action="EditRoom" asp-route-id="@room.RoomId" class="btn btn-warning">Chỉnh sửa</a>
+                    <a asp-action="DeleteRoom" asp-route-id="@room.RoomId" class="btn btn-danger">Xóa</a>
+                </td>
+            </tr>
+
+            indexRoom++;
+        }
+
+    </tbody>
+</table>
+
+<!-- Modal thêm phòng -->
+<div class="modal fade" id="modal-addRoom" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form asp-action="CreateRoom" method="post">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="col-3">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="col-6 text-center">
+                        <h2>THÊM PHÒNG MỚI</h2>
+                        <p class="modal-title">Nhập đầy đủ thông tin phòng</p>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group mb-3" style="width: 100%;">
+                                <label class="form-label" for="RoomId">Mã phòng</label>
+                                <input type="text" name="RoomId" id="RoomId" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group mb-3" style="width: 100%;">
+                                <label class="form-label" for="RoomName">Số phòng</label>
+                                <input type="number" name="RoomName" id="RoomName" class="form-control" required>
+                            </div>
+
+                            <div class="form-group mb-3" style="width: 100%;">
+                                <label class="form-label">Trạng thái</label>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="RoomStatus" id="empty" value="0" checked>
+                                            <label class="form-check-label" for="empty">
+                                                Phòng trống
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="RoomStatus" id="full" value="1">
+                                            <label class="form-check-label" for="full">
+                                                Phòng đang dùng
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group mb-3" style="width: 100%;">
+                                <label class="form-label" for="CinemaId">Chọn rạp</label>
+                                <select id="cinemaSelect" name="CinemaId" class="form-control" required>
+                                    <option value="" disabled selected>Chọn rạp</option>
+                                    @foreach (var cinema in ViewBag.Cinemas)
+                                    {
+                                        <option value="@cinema.CinemaId">@cinema.CinemaName</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="form-group mb-3" style="width: 100%;">
+                                <label class="form-label" for="TotalSeats">Số lượng ghế</label>
+                                <input type="number" name="TotalSeats" id="TotalSeats" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-danger" id="addRoomButton">Thêm phòng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

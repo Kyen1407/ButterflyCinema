@@ -1,0 +1,123 @@
+/*
+Template Name:Cinema Zone
+File: Layout CSS
+Author: Templates On Web
+Author URI: http://templateonweb.com/
+Licence: <a href="http://www.templateonweb.com/terms.php?v=content&contentid=152">Website Template Licence</a>
+*/
+/*********************contact****************/
+#contact{
+  padding-top:50px;
+  padding-bottom:50px;
+  }
+.contact_1_inner{
+  background: #f4f4f4;
+  padding: 15px;
+  }
+/* .contact_1_inner h3 {
+    font-size: 24px;
+    color: #666;
+} */
+/* .contact_1_inner h3 a {
+    color: #666;
+}
+.contact_1_inner h3 a:hover {
+    color: #000; */
+/* } */
+.contact_1_inner_1 {
+ margin-top:30px;
+ width:80%;
+ margin-left:auto;
+ margin-right:auto;
+  }
+.contact_1_inner_1_left h4{
+ border-bottom:1px solid #ddd;
+ padding-bottom:8px;
+ margin-bottom:15px;
+ cursor: pointer;
+  }
+.contact_1_inner_1_left h4 a{
+ color:#000; 
+  }
+.contact_1_inner_1_left .para_1{
+margin-top:15px;
+  }
+.contact_1_inner_1_left .para_1 span{
+font-weight:bold;
+  }
+
+#contact_last{
+ background:#f4f4f4;
+ padding-top:50px;
+ padding-bottom:50px; 
+  }
+.contact_last_1{
+  width:80%;
+  margin-left:auto;
+  margin-right:auto;
+  }
+.contact_last_1 h2{
+  border-bottom:1px solid #ddd;
+  padding-bottom:8px;
+  margin-bottom:15px;
+  }
+.contact_last_1 p{
+margin-bottom:8px;
+font-size:18px;  
+  }
+.contact_last_1 .form-control{
+height:55px; 
+border-radius:0;
+font-size:18px;
+margin-bottom:20px;
+  }
+.contact_last_1 .form-control:focus{
+border-color:#cf0000;
+  }
+.contact_last_1 .form_1{
+height:150px;
+  }
+.contact_last_1 .submit_button{
+  background:#cf0000;
+  border:none;
+  padding:15px 30px;
+  color:#fff;
+  font-size:20px;
+  margin-top:10px;
+  }
+.contact_last_1 .submit_button:hover{
+background:#9a0707;
+  }
+/*********************contact_end****************/
+
+
+@media screen and (max-width : 767px){
+.contact_1_inner h3{
+  text-align:center;
+  }
+.contact_1_inner h3 a{
+float:none!important;
+display:block;
+  }
+.contact_1_inner_1_left {
+  text-align:center;
+  margin-bottom:15px;
+  }
+.contact_last_1 {
+ text-align:center;
+ width:100%; 
+  }
+}
+
+@media (min-width:768px) and (max-width:991px) {
+
+}
+ @media (min-width:992px) and (max-width:1200px) {
+
+ }
+@media (min-width:1201px) and (max-width:1275px) {
+
+ }
+
+
+

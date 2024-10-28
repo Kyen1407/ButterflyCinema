@@ -1,0 +1,100 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+}
+
+<button class="btn btn-lg btn-success add-cinema" data-toggle="modal" data-target="#modal-addCinema">Thêm rạp</button>
+
+<table class="table" border="1">
+    <thead>
+        <tr>
+            <th style="width: 5%;">STT</th>
+            <th style="width: 10%;">Mã rạp</th>
+            <th style="width: 20%;">Tên rạp</th>
+            <th style="width: 30%;">Địa chỉ</th>
+            <th style="width: 15%;">Số lượng phòng</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @{
+            int index = 1;
+        }
+
+        @foreach (var cinema in ViewBag.Cinemas)
+        {
+            <tr>
+                <th scope="row" style="text-align: center;">@index</th>
+                <td>@cinema.CinemaId</td>
+                <td>@cinema.CinemaName</td>
+                <td>@cinema.CinemaAddress</td>
+                <td>@cinema.Rooms.Count</td>
+                <td>
+                    <a asp-action="EditCinema" asp-route-id="@cinema.CinemaId" class="btn btn-warning">Chỉnh sửa</a>
+                    <a asp-action="ConfirmDeleteCinema" asp-route-id="@cinema.CinemaId" class="btn btn-danger">Xóa</a>
+                </td>
+            </tr>
+
+            index++;
+        }
+    </tbody>
+</table>
+
+<!-- Modal thêm rạp -->
+<div class="modal fade" id="modal-addCinema" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="col-3">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="col-6 text-center">
+                    <h2>THÊM RẠP MỚI</h2>
+                    <p class="modal-title">Nhập đầy đủ thông tin rạp</p>
+                </div>
+
+                <form asp-action="CreateCinema" method="post">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group mb-3" style="width: 100%;">
+                                <label class="form-label" for="CinemaId">Mã rạp</label>
+                                <input type="text" name="CinemaId" id="CinemaId" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group mb-3" style="width: 100%;">
+                                <label class="form-label" for="CinemaName">Tên rạp</label>
+                                <input type="text" name="CinemaName" id="CinemaName" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group mb-3" style="width: 100%;">
+                                <label class="form-label" for="CinemaAddress">Địa chỉ</label>
+                                <input type="text" name="CinemaAddress" id="CinemaAddress" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group mb-3" style="width: 100%;">
+                                <label class="form-label" for="AddressUrl">Map Url</label>
+                                <input type="text" name="AddressUrl" id="AddressUrl" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        <button type="submit" class="btn btn-danger">Thêm rạp</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

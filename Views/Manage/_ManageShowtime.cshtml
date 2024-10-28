@@ -1,0 +1,263 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+}
+
+<button class="btn btn-lg btn-success add-showtime" data-toggle="modal" data-target="#modal-addShowtime">Thêm suất chiếu</button>
+
+<div class="dropdown dropdownCinema">
+    <button class="btn btn-lg dropdown-toggle" type="button" id="about-us" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span id="selectedCinemainShowtime">Chọn rạp quản lý</span>
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="about-us">
+        <li><a href="#" onclick="showAllRoom('selectedCinemainShowtime', 'showtimesTable')">Tất cả</a></li>
+        @foreach (var cinema in ViewBag.Cinemas)
+        {
+            <li><a href="#" onclick="filterRooms('@cinema.CinemaId', '@cinema.CinemaName', 'selectedCinemainShowtime', 'showtimesTable')">@cinema.CinemaName</a></li>
+        }
+    </ul>
+</div>
+
+<form action="" class="search-form">
+    <div class="form-group has-feedback">
+        <label for="search" class="sr-only">Search</label>
+        <input type="text" class="form-control" name="search" id="search" placeholder="Tìm suất chiếu">
+        <span class="glyphicon glyphicon-search form-control-feedback"></span>
+    </div>
+</form>
+
+<table id="showtimesTable" class="table" border="1">
+    <thead>
+        <tr>
+            <th style="width: 5%;">STT</th>
+            <th>Mã suất chiếu</th>
+            <th>Tên phim</th>
+            <th>Ngày chiếu</th>
+            <th>Thời gian bắt đầu</th>
+            <th>Thời gian kết thúc</th>
+            <th>Phòng chiếu</th>
+            <th>Định dạng</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @{
+            int indexShowtime = 1;
+            var movies = ViewBag.Movies as List<Movie>;
+            var rooms = ViewBag.Rooms as List<Room>;
+            var cinemas = ViewBag.Cinemas as List<Cinema>;
+        }
+        @foreach (var showtime in ViewBag.Showtime)
+        {
+            <tr data-cinema-id=@rooms.FirstOrDefault(r => r.RoomId == showtime.RoomId)?.CinemaId>
+                <th class="room-number" scope="row" style="text-align: center;">@indexShowtime</th>
+                <td>@showtime.ShowtimeId</td>
+                <td>@movies.FirstOrDefault(m => m.MovieId == showtime.MovieId)?.MovieName</td>
+                <td>@showtime.ShowDate</td>
+                <td>@showtime.StartTime</td>
+                <td>@showtime.EndTime</td>
+                <td>@rooms.FirstOrDefault(r => r.RoomId == showtime.RoomId)?.RoomId</td>
+                <td>@showtime.Format</td>
+                <td>
+                    <a asp-action="EditShowtime" asp-route-id="@showtime.ShowtimeId" class="btn btn-warning">Chỉnh sửa</a>
+                    <a asp-action="ConfirmDeleteShowtime" asp-route-id="@showtime.ShowtimeId" class="btn btn-danger">Xóa</a>
+                    <a asp-action="ManageTicket" asp-route-id="@showtime.ShowtimeId" class="btn btn-info">Quản lý vé</a>
+                </td>
+            </tr>
+
+            indexShowtime++;
+        }
+    </tbody>
+</table>
+
+<!-- Modal thêm suất chiếu -->
+<div class="modal fade" id="modal-addShowtime" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="col-3">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="col-6 text-center">
+                    <h2>THÊM SUẤT CHIẾU</h2>
+                    <p class="modal-title">Nhập đầy đủ thông tin suất chiếu</p>
+                </div>
+
+                <form asp-action="CreateShowtime" method="post">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group mb-3">
+                                <label for="movieSelect">Chọn phim</label>
+                                <select id="movieSelect" name="MovieId" class="form-control" required>
+                                    <option value="" disabled selected>Chọn phim</option>
+                                    @foreach (var movie in ViewBag.Movies)
+                                    {
+                                        <option value="@movie.MovieId">@movie.MovieName</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="form-group mb-3" style="width: 100%;">
+                                <label class="form-label" for="idShowtime">Mã suất chiếu</label>
+                                <input type="text" name="ShowtimeId" id="idShowtime" class="form-control" required>
+                            </div>
+                            <div class="form-group mb-3" style="width: 100%;">
+                                <label class="form-label" for="timeStart">Thời gian bắt đầu</label>
+                                <input type="time" name="StartTime" id="timeStart" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group mb-3">
+                                <label for="roomSelect">Chọn phòng chiếu</label>
+                                <select id="roomSelect" name="RoomId" class="form-control" onchange="document.getElementById('selectedRoom').innerText = this.options[this.selectedIndex].text;" required>
+                                    <option value="" disabled selected>Chọn phòng chiếu</option>
+                                    @foreach (var room in rooms)
+                                    {
+                                        var cinema = cinemas.FirstOrDefault(c => c.CinemaId == room.CinemaId)?.CinemaName;
+                                        <option value="@room.RoomId">Phòng @room.RoomName - @cinema</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="form-group mb-3" style="width: 100%;">
+                                <label class="form-label" for="dateShowtime">Ngày chiếu</label>
+                                <input type="date" name="ShowDate" id="dateShowtime" class="form-control" required>
+                            </div>
+                            <div class="form-group mb-3" style="width: 100%;">
+                                <label class="form-label" for="timeEnd">Thời gian kết thúc</label>
+                                <input type="time" name="EndTime" id="timeEnd" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group mb-3" style="width: 100%;">
+                                <label class="form-label" for="format">Định dạng</label>
+                                <input type="text" name="Format" id="format" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger">Thêm suất chiếu</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<!-- Modal quản lý vé -->
+<div class="modal fade" id="modal-ticket" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="col-3">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <button class="btn btn-lg btn-success add-ticket" data-toggle="modal" data-target="#modal-addticket" data-dismiss="modal">Thêm loại vé</button>
+
+                <table class="table" border="1">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%;">STT</th>
+                            <th>Mã loại vé</th>
+                            <th>Tên loại vé</th>
+                            <th>Giá vé</th>
+                            <th>Số lượng</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <th scope="row" style="text-align: center;">1</th>
+                            <td>Butterfly Nhà Bè</td>
+                            <td>Shin cậu bé bút chì</td>
+                            <td>mdomdo</td>
+                            <td>Butterfly Nhà Bè</td>
+                            <td>
+                                <button class="btn btn-danger">Xóa</button>
+                                <button class="btn btn-warning">Cập nhật</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" style="text-align: center;">2</th>
+                            <td>Butterfly Nhà Bè</td>
+                            <td>Otto</td>
+                            <td>mdomdo</td>
+                            <td>Butterfly Nhà Bè</td>
+                            <td>
+                                <button class="btn btn-danger">Xóa</button>
+                                <button class="btn btn-warning">Cập nhật</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" style="text-align: center;">3</th>
+                            <td>Butterfly Nhà Bè</td>
+                            <td>Otto</td>
+                            <td>mdomdo</td>
+                            <td>Butterfly Nhà Bè</td>
+                            <td>
+                                <button class="btn btn-danger">Xóa</button>
+                                <button class="btn btn-warning">Cập nhật</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal thêm vé -->
+<div class="modal fade" id="modal-addticket" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="col-3">
+                    <button type="button" class="close" data-toggle="modal" data-target="#modal-ticket" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="col-6 text-center">
+                    <h2>THÊM LOẠI VÉ</h2>
+                    <p class="modal-title">Nhập đầy đủ thông tin loại vé</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group mb-3" style="width: 100%;">
+                            <label class="form-label" for="idTicket">Mã loại vé</label>
+                            <input type="text" name="idTicket" id="idTicket" class="form-control">
+                        </div>
+                        <div class="form-group mb-3" style="width: 100%;">
+                            <label class="form-label" for="ticketName">Tên loại vé</label>
+                            <input type="text" name="ticketName" id="ticketName" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group mb-3" style="width: 100%;">
+                            <label class="form-label" for="ticketPrice">Giá vé</label>
+                            <input type="number" name="ticketPrice" id="ticketPrice" class="form-control">
+                        </div>
+                        <div class="form-group mb-3" style="width: 100%;">
+                            <label class="form-label" for="ticketQuantity">Số lượng</label>
+                            <input type="number" name="ticketQuantity" id="ticketQuantity" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger">Thêm loại vé</button>
+            </div>
+        </div>
+    </div>
+</div>*@

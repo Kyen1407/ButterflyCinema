@@ -1,0 +1,72 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+}
+
+@model ButterflyCinema.Models.Room
+
+@{
+    ViewData["Title"] = "Xóa Phòng";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BUTTERFLY CINEMA</title>
+    <link rel="icon" href="~/Content/img/logo6.png" type="image/x-icon">
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/css/manage.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Paytone+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Monoton&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.all.min.js"></script>
+    <script src="~/Content/js/jquery-2.1.1.min.js"></script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+
+    <style>
+        .container {
+            text-align: center;
+        }
+
+        .roomName {
+            font-weight: bold;
+            display: inline;
+        }
+
+        p {
+            display: inline;
+        }
+
+        input {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Xác nhận xóa phòng</h2>
+
+        <form asp-action="DeleteRoom" method="post">
+            <div>
+                <p>Bạn có chắc chắn muốn xóa phòng số </p> <p class="roomName">@Model.RoomName</p><p> có mã rạp là </p> <p class="roomName">@Model.CinemaId</p><p>?</p>
+            </div>
+            <input type="hidden" asp-for="CinemaId" />
+            <div class="form-group">
+                <input type="submit" value="Xóa" class="btn btn-danger" />
+                <a asp-action="Manage" asp-route-tab="room" class="btn btn-secondary">Quay lại</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+
+
+

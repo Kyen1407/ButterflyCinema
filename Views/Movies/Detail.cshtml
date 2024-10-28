@@ -1,0 +1,290 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    ViewBag.Title = "Detail";
+}
+
+@model ButterflyCinema.Models.Movie
+
+<link href="~/Content/css/detail.css" rel="stylesheet">
+<link type="text/css" rel="stylesheet" href="~/Content/css/slick.css" />
+<link type="text/css" rel="stylesheet" href="~/Content/css/slick-theme.css" />
+<link type="text/css" rel="stylesheet" href="~/Content/css/style.css" />
+
+<section id="header" class="clearfix cd-secondary-nav">
+    <div class="container">
+        <div class="row">
+            <div class="header_main clearfix">
+                <nav class="navbar navbar-default">
+                    <div class="navbar-header">
+                        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">BUTTERFLY CINEMA <span>A BUTTERFLY NEVER DIES</span></a>
+                    </div>
+
+                    <div class="collapse navbar-collapse js-navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a class="font_tag" href="/Home/Index">TRANG CHỦ</a></li>
+                            <li><a class="font_tag active_tag" href="/Movies/Movies">PHIM</a></li>
+                            <li><a class="font_tag" href="/Pricing/Pricing">RẠP VÀ GIÁ</a></li>
+                            <li><a class="font_tag" href="/Ads/Ads">KHUYẾN MÃI</a></li>
+                            <li><a class="font_tag" href="/Event/Event">BẢNG TIN</a></li>
+                            <li><a class="font_tag border_none_1" href="/Contact/Contact">LIÊN HỆ</a></li>
+                        </ul>
+                    </div>
+                    <!-- /.nav-collapse -->
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="center" class="center_detail clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="center_detail_main clearfix">
+                <div class="col-sm-4">
+                    <div class="center_detail_main_left clearfix">
+                        <img src=@Model.Poster width="100%">
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="center_detail_main_right clearfix">
+                        <h2>@Model.MovieName</h2>
+                        <p>@Model.Description</p>
+                    </div>
+
+                    <div class="center_detail_main_right_1 clearfix">
+                        <div class="col-sm-6 space_left">
+                            <div class="center_detail_main_right_1_inner">
+                                <h6 id="watchTrailer">XEM TRAILER</h6>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="center_detail_main_right_1_inner">
+                                <h3>CHIA SẺ</h3>
+                                <ul class="social-network social-circle">
+                                    <li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <iframe id="videoFrame" width="100%" height="521" src=@Model.Trailer title=@Model.MovieName frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+</div>
+
+<section id="detail">
+    <div class="container">
+        <div class="row">
+            <div class="detail_main clearfix">
+                <div class="col-sm-4">
+                    <div class="detail_main_left clearfix">
+                        <div class="click_right clearfix">
+                            <h4>THÔNG TIN</h4>
+                            <ul>
+                                <li><i class="fa fa-calendar"></i><b>Khởi chiếu: </b>@Model.ReleaseDate</li>
+                                <li><i class="fa fa-film"></i><b>Thể loại: </b>@Model.Genre</li>
+                                <li><i class="fa fa-user"></i><b>Đạo diễn: </b>@Model.Director</li>
+                                <li><i class="fa fa-users"></i><b>Diễn viên: </b>@Model.Actor</li>
+                                <li><i class="fa fa-clock-o"></i><b>Thời lượng: </b>@Model.Duration</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="detail_main_right clearfix">
+                        @using System.Globalization
+
+                        @{
+                            var today = DateTime.Today; // Lấy ngày hôm nay
+                            var culture = new CultureInfo("vi-VN"); // Thiết lập văn hóa tiếng Việt
+                        }
+
+                        <ul class="nav nav-tabs">
+                            @for (int i = 0; i < 4; i++)
+                            {
+                                var date = today.AddDays(i); // Tính ngày
+                                var dayOfWeek = culture.DateTimeFormat.GetDayName(date.DayOfWeek); // Lấy tên ngày trong tuần
+                                var formattedDate = date.ToString("d/M", culture); // Định dạng ngày theo tiếng Việt
+                                var activeClass = i == 0 ? "active" : ""; // Đánh dấu tab đầu tiên là active
+                                <li class="@activeClass">
+                                    <a data-toggle="tab" href="#day@(i + 1)" onclick="loadShowtimes('@Model.MovieId', '@date.ToString("yyyy-MM-dd")', @(i + 1))">@dayOfWeek, @formattedDate</a>
+                                </li>
+                            }
+                        </ul>
+
+                        <div class="tab-content">
+                            @for (int i = 0; i < 4; i++)
+                            {
+                                var date = today.AddDays(i);
+                                <div id="day@(i + 1)" class="tab-pane fade @(i == 0 ? "in active" : "")">
+                                    <div id="showtime-list@(i + 1)"></div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="detail_main_right_1 clearfix">
+                <h4>PHIM ĐANG CHIẾU</h4>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="products-tabs">
+                            <!-- tab -->
+                            <div id="tab1" class="tab-pane active">
+                                <div class="products-slick" data-nav="#slick-nav-1">
+                                    @{
+                                        var today1 = DateOnly.FromDateTime(DateTime.Today); // Lấy ngày hôm nay
+                                    }
+                                    @foreach (var movie in ViewBag.Movies) {
+                                        if (@movie.ReleaseDate <= today1) {
+                                            <div class="col-sm-2 space_left">
+                                            <div class="detail_main_right_1_inner_1 clearfix">
+                                                <a href="@Url.Action("Detail", "Home", new { id = movie.MovieId })"><img src=@movie.Poster width="100%" height="220px"></a>
+                                                <p class="text-center"><a href="@Url.Action("Detail", "Home", new { id = movie.MovieId })">@movie.MovieName</a></p>
+                                            </div>
+                                        </div>
+                                        }
+                                    }
+                                </div>
+                                <div id="slick-nav-1" class="products-slick-nav"></div>
+                            </div>
+                            <!-- /tab -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="booking_last">
+    <div class="container">
+        <div class="row">
+            <div class="booking_last clearfix">
+                <div class="col-sm-4">
+                    <div class="booking_right_main_3 clearfix">
+                        <div class="grid">
+                            <figure class="effect-milo">
+                                <img src="~/Content/img/km1.png" alt="img03">
+                                <figcaption>
+                                    <!-- <h2>Cinema <span>Zone</span></h2>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
+                                    <a onclick="detailAds(3)">View more</a>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="booking_right_main_3 clearfix">
+                        <div class="grid">
+                            <figure class="effect-milo">
+                                <img src="~/Content/img/km2.png" alt="img03">
+                                <figcaption>
+                                    <!-- <h2>Cinema <span>Zone</span></h2>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
+                                    <a onclick="detailAds(2)">View more</a>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="booking_right_main_3 clearfix">
+                        <div class="grid">
+                            <figure class="effect-milo">
+                                <img src="~/Content/img/km1.png" alt="img03">
+                                <figcaption>
+                                    <!-- <h2>Cinema <span>Zone</span></h2>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
+                                    <a onclick="detailAds(3)">View more</a>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="~/Content/js/detail.js"></script>
+<script src="~/Content/js/slick.min.js"></script>
+<script src="~/Content/js/main.js"></script>
+<script>
+    function loadShowtimes(movieId, date, tabIndex) {
+        $.ajax({
+            url: '@Url.Action("GetShowtimes", "Home")',
+            type: 'GET',
+            data: { date: date, movieId: movieId},
+            success: function (data) {
+                var showtimeList = $('#showtime-list' + tabIndex);
+                showtimeList.empty(); // Xóa nội dung cũ
+                console.log(data)
+
+                if (data.length > 0) {
+                    // Nhóm theo tên rạp
+                    var groupedShowtimes = {};
+                    data.forEach(function (showtime) {
+                        if (!groupedShowtimes[showtime.cinemaName]) {
+                            groupedShowtimes[showtime.cinemaName] = [];
+                        }
+                        groupedShowtimes[showtime.cinemaName].push({
+                            startTime: showtime.startTime,
+                            roomId: showtime.roomId,
+                            showtimeId: showtime.showtimeId,
+                        });
+                    });
+
+                    // Hiển thị dữ liệu
+                    for (var cinema in groupedShowtimes) {
+                        var listHtml = '<div class="click clearfix">';
+                        listHtml += '<h4><a href="#">' + cinema + '</a></h4>';
+                        listHtml += '<ul>';
+                        groupedShowtimes[cinema].forEach(function (showtime) {
+                            console.log(showtime);
+                            listHtml += `<li style="margin-right:5px"><a onclick="booking('${showtime.roomId}', '${showtime.showtimeId}')">${showtime.startTime}</a></li>`;
+                        });
+                        listHtml += '</ul>';
+                        listHtml += '</div>';
+                        showtimeList.append(listHtml);
+                    }
+                } else {
+                    showtimeList.append('<p style="margin-top:10px">Không có suất chiếu nào.</p>');
+                }
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        loadShowtimes('@Model.MovieId', '@today.ToString("yyyy-MM-dd")', 1); // Tải suất chiếu cho ngày đầu tiên khi tải trang
+    });
+
+    function booking(roomId, showTimeId) {
+        // Chuyển hướng đến trang đặt ghế với các tham số
+        window.location.href = `https://localhost:7116/Booking/Booking?roomId=${roomId}&showTimeId=${showTimeId}`;
+    }
+</script>

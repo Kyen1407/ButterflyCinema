@@ -1,0 +1,147 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    ViewBag.Title = "Checkout";
+}
+
+<link href="~/Content/css/checkout.css" rel="stylesheet">
+
+<section id="header" class="clearfix cd-secondary-nav">
+    <div class="container">
+        <div class="row">
+            <div class="header_main clearfix">
+                <nav class="navbar navbar-default">
+                    <div class="navbar-header">
+                        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">BUTTERFLY CINEMA <span>A BUTTERFLY NEVER DIES</span></a>
+                    </div>
+
+
+                    <div class="collapse navbar-collapse js-navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a class="font_tag" href="/Home/Index">TRANG CHỦ</a></li>
+                            <li><a class="font_tag" href="/Movies/Movies">PHIM</a></li>
+                            <li><a class="font_tag" href="/Pricing/Pricing">RẠP VÀ GIÁ</a></li>
+                            <li><a class="font_tag" href="/Ads/Ads">KHUYẾN MÃI</a></li>
+                            <li><a class="font_tag" href="/Event/Event">BẢNG TIN</a></li>
+                            <li><a class="font_tag border_none_1" href="/Contact/Contact">LIÊN HỆ</a></li>
+                        </ul>
+
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="row checkout_main">
+    <h4 class="thanks">Cảm ơn quý khách đã đến với <b style="color: #cf0000;">Butterfly!!</b></h4>
+    <h4 class="thanks">Xin quý khách vui lòng kiểm tra lại thông tin đặt vé trước khi ra rạp</h4>
+
+    <div class="row vd">
+        <div class="col-sm-7">
+            <!-- <div class="bg"> -->
+            <!-- <p>Vui lòng thanh toán</p> -->
+            <div class="payment">
+                <form action="">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label for="method">Phương thức thanh toán</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <select id="method" name="method">
+                                <option value="">Chọn loại thẻ</option>
+                                <option value="momo">Ví điện tử Momo</option>
+                                <option value="zalopay">Ví điện tử Zalopay</option>
+                                <option value="card">HSBC/Payoo - ATM/VISA/MASTER/JCB/QRCODE</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label for="name">Họ và tên</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" id="name" name="name" placeholder="Họ và tên" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" id="email" name="email" placeholder="Nhập email" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label for="sdt">Số điện thoại</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" id="sdt" name="sdt" placeholder="Nhập số điện thoại" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label for="discount">Mã giảm giá</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" name="discount" id="discount" placeholder="Mã giảm giá">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-8">
+                            <p style="color: red; font-size: 15px; font-weight: bold;">Lưu ý: Nhập chính xác email để nhận mã đặt vé</p>
+                            <div class="btn-checkout">
+                                <button class="btn btn-lg" onclick="back()">QUAY LẠI</button>
+                                <button type="submit" class="btn btn-lg" style="float: right;">THANH TOÁN</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- </div> -->
+            </div>
+        </div>
+
+        <div class="col-sm-3 detail">
+            <div class="row poster">
+                <div class="col-sm-5">
+                    <img id="moviePoster" src="https://cinestar.com.vn/pictures/Cinestar/08-2023/shin-cau-be-but-chi.jpg" alt="" height="200px">
+                </div>
+                <div class="col-sm-7 movie-name">
+                    <p id="movieName">3DCG! SHIN CẬU BÉ BÚT CHÌ 2D LT (P): ĐẠI CHIẾN SIÊU NĂNG LỰC SUSHI BAY</p>
+                </div>
+            </div>
+
+            <div class="information">
+                <p>
+                    <b>Rạp: </b><span id="rap">Butterfly Nhà Bè | RAP 1</span>
+                </p>
+                <p>
+                    <b>Suất chiếu: </b><span id="suatChieu">21:21 | Thứ 7, 30/09/2023</span>
+                </p>
+                <div>
+                    <p id="selectSeat"><b>Ghế: </b><span class="selectedSeatsHolder" id="selectedSeatsHolder"></span></p>
+                </div>
+                <p id="food"><b>Thức ăn: </b><span id="selectedFoodsHolder"></span></p>
+                <p id="total" class="bill"><b>Thành tiền: </b><span id="totalPrice"></span></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Content/js/checkout.js"></script>
+

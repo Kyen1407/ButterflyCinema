@@ -1,0 +1,58 @@
+/*
+Template Name:Cinema Zone
+File: Layout CSS
+Author: Templates On Web
+Author URI: http://templateonweb.com/
+Licence: <a href="http://www.templateonweb.com/terms.php?v=content&contentid=152">Website Template Licence</a>
+*/
+/*********************pricing****************/
+.center_pricing{
+  padding-top:40px;
+  padding-bottom:50px;
+}
+
+.center_pricing_1 img{
+  margin-bottom: 15px;
+}
+
+.center_pricing_2 img{
+  width: 100%;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+/*********************pricing_end****************/
+
+
+/* @media screen and (max-width : 767px){
+  .center_pricing_1 ul li{
+    margin-right:10px;
+    margin-left:10px;
+    margin-bottom:10px;
+  }
+
+  .center_pricing_1 {
+    text-align:center;
+    width:100%; 
+  }
+}
+
+@media (min-width:768px) and (max-width:991px) {
+.center_pricing_1{
+width:100%;
+  }
+.center_pricing_1 ul li{
+  margin-right:30px;
+  }
+}
+ @media (min-width:992px) and (max-width:1200px) {
+.center_pricing_1 ul li{
+  margin-right:40px;
+  }
+ }
+@media (min-width:1201px) and (max-width:1275px) {
+
+ } */
+
+
+

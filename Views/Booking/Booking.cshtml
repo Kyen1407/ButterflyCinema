@@ -1,0 +1,376 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    ViewBag.Title = "booking";
+}
+
+<link href="~/Content/css/booking.css" rel="stylesheet">
+
+<section id="header" class="clearfix cd-secondary-nav">
+    <div class="container">
+        <div class="row">
+            <div class="header_main clearfix">
+                <nav class="navbar navbar-default">
+                    <div class="navbar-header">
+                        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">BUTTERFLY CINEMA <span>A BUTTERFLY NEVER DIES</span></a>
+                    </div>
+
+
+                    <div class="collapse navbar-collapse js-navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a class="font_tag" href="/Home/Index">TRANG CHỦ</a></li>
+                            <li><a class="font_tag" href="/Movies/Movies">PHIM</a></li>
+                            <li><a class="font_tag" href="/Pricing/Pricing">RẠP VÀ GIÁ</a></li>
+                            <li><a class="font_tag" href="/Ads/Ads">KHUYẾN MÃI</a></li>
+                            <li><a class="font_tag" href="/Event/Event">BẢNG TIN</a></li>
+                            <li><a class="font_tag border_none_1" href="/Contact/Contact">LIÊN HỆ</a></li>
+                        </ul>
+
+                    </div><!-- /.nav-collapse -->
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="row booking_main">
+    <div class="col-sm-8">
+        <div class="row">
+            <div class="col-sm-6 booking_left_main clearfix">
+                <button type="button" class="btn btn-booking booking-left" style="float: right;" data-toggle="modal" data-target="#modalTicket">CHỌN VÉ</button>
+            </div>
+
+            <!-- Modal ticket-->
+            <div class="modal fade" id="modalTicket" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-body ticket">
+                            <div class="table-container">
+                                <table>
+                                    <tr>
+                                        <th class="table-title-ticket">Loại vé</th>
+                                        <th class="table-title-ticket">Số lượng</th>
+                                        <th class="table-title-ticket">Giá</th>
+                                        <th class="table-title-ticket">Tổng tiền</th>
+                                    </tr>
+                                    <tr class="table-content content-1">
+                                        <td style="width: 40%;">
+                                            <h4>Ghế đơn</h4>
+                                        </td>
+                                        <td class="image" style="width: 20%;">
+                                            <div class="buttons_added_ticket">
+                                                <input class="ticket-minus ticket" type="button" value="--">
+                                                <input id="quantity" aria-label="quantity" class="ticket-qty" max="10" min="0" name="" type="number" value="0">
+                                                <input class="ticket-plus ticket" type="button" value="+">
+                                            </div>
+                                        </td>
+                                        <td class="movie-price" id="moviePrice" style="width: 20%;">70000</td>
+                                        <td class="ticket-price" id="ticketPrice" style="width: 20%">0 đ</td>
+                                    </tr>
+                                   
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-sm-6 booking_left_main clearfix">
+                <button type="button" class="btn btn-booking booking-right" data-toggle="modal" data-target="#myModal">CHỌN THỨC ĂN</button>
+            </div>
+
+            <!-- Modal food-->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="table-container">
+                                <table>
+                                    <!-- combo -->
+                                    <tr>
+                                        <th class="table-title" colspan="4">COMBO</th>
+                                    </tr>
+                                    @{
+                                        var comboItems = ViewBag.ComboItems as List<Comboitem>;
+                                        var concessions = ViewBag.Concessions as List<Concession>;
+                                        var comboIndex = 1;
+                                    }
+                                    @foreach (var combo in ViewBag.Combos) {
+                                        var lsConcessionId = comboItems
+                                        .Where(c => c.ComboId == combo.ComboId)
+                                        .Select(c => c.ConcessionId)
+                                        .ToList();
+
+                                        if (comboIndex % 2 == 1) {
+                                            <tr class="table-content content-1">
+                                                <td style="width: 40%;">
+                                                    <h4 class="food-name">@combo.ComboName</h4>
+                                                    <p>
+                                                        @foreach (var i in lsConcessionId)
+                                                        {
+                                                            var concessionName = concessions.FirstOrDefault(c => c.ConcessionId == i)?.ConcessionName;
+                                                            var quantity = comboItems.FirstOrDefault(cb => cb.ComboId == combo.ComboId && cb.ConcessionId == i).Quantity;
+
+
+                                                            if (concessionName != null)
+                                                            {
+                                                                <span>@quantity @concessionName <br /></span>
+                                                            }
+                                                        }
+                                                    </p>
+                                                    <p id="food-price"><b>Giá: @combo.ComboPrice đ</b></p>
+                                                </td>
+                                                <td class="image" style="width: 20%;">
+                                                    <img src="@combo.ComboImg" alt="" width="100px" height="100px">
+                                                </td>
+                                                <td style="width: 20%;">
+                                                    <div class="buttons_added_food">
+                                                        <input class="food-minus food" type="button" value="--">
+                                                        <input aria-label="quantity" class="food-qty" max="10" min="0" name="" type="number" value="0">
+                                                        <input class="food-plus food" type="button" value="+">
+                                                    </div>
+                                                </td>
+                                                <td id="total-food-price" style="width: 20%">0 đ</td>
+                                            </tr>
+                                        }
+                                        else {
+                                            <tr class="table-content content-2">
+                                                <td style="width: 40%;">
+                                                    <h4 class="food-name">@combo.ComboName</h4>
+                                                    <p>
+                                                        @foreach (var i in lsConcessionId)
+                                                        {
+                                                            var concessionName = concessions.FirstOrDefault(c => c.ConcessionId == i)?.ConcessionName;
+                                                            var quantity = comboItems.FirstOrDefault(cb => cb.ComboId == combo.ComboId && cb.ConcessionId == i).Quantity;
+
+
+                                                            if (concessionName != null)
+                                                            {
+                                                                <span>@quantity @concessionName <br /></span>
+                                                            }
+                                                        }
+                                                    </p>
+                                                    <p id="food-price"><b>Giá: @combo.ComboPrice đ</b></p>
+                                                </td>
+                                                <td class="image" style="width: 20%;">
+                                                    <img src="@combo.ComboImg" alt="" width="100px" height="100px">
+                                                </td>
+                                                <td style="width: 20%;">
+                                                    <div class="buttons_added_food">
+                                                        <input class="food-minus food" type="button" value="--">
+                                                        <input aria-label="quantity" class="food-qty" max="10" min="0" name="" type="number" value="0">
+                                                        <input class="food-plus food" type="button" value="+">
+                                                    </div>
+                                                </td>
+                                                <td id="total-food-price" style="width: 20%">0 đ</td>
+                                            </tr>
+                                        }
+                                        comboIndex++;
+                                    }
+                                    <!-- combo -->
+
+                                    <!-- bắp rang -->
+                                    <tr>
+                                        <th class="table-title" colspan="4">BẮP RANG</th>
+                                    </tr>
+                                    @{ var foodIndex = 1; }
+                                    @foreach (var concession in ViewBag.Concessions) {
+                                        if(@concession.ConcessionItem == "Bắp ngọt") {
+                                            <tr class="table-content content-1">
+                                                <td style="width: 40%;">
+                                                    <h4 class="food-name">@concession.ConcessionName</h4>
+                                                    <p id="food-price"><b>Giá: @concession.ConcessionPrice đ</b></p>
+                                                </td>
+                                                <td class="image" style="width: 20%;">
+                                                    <img src="@concession.ConcessionImg" alt="" width="100px" height="100px">
+                                                </td>
+                                                <td style="width: 20%;">
+                                                    <div class="buttons_added_food">
+                                                        <input class="food-minus food" type="button" value="--">
+                                                        <input aria-label="quantity" class="food-qty" max="10" min="0" name="" type="number" value="0">
+                                                        <input class="food-plus food" type="button" value="+">
+                                                    </div>
+                                                </td>
+                                                <td id="total-food-price" style="width: 20%">0 đ</td>
+                                            </tr>
+                                        }
+                                    }
+                                    <!-- bắp rang -->
+
+                                    <!-- nước ngọt -->
+                                    <tr>
+                                        <th class="table-title" colspan="4">NƯỚC NGỌT</th>
+                                    </tr>
+                                    @foreach (var concession in ViewBag.Concessions)
+                                    {
+                                        if (@concession.ConcessionItem == "Nước ngọt")
+                                        {
+                                            if (foodIndex % 2 == 1) {
+                                                <tr class="table-content content-1">
+                                                    <td style="width: 40%;">
+                                                        <h4 class="food-name">@concession.ConcessionName</h4>
+                                                        <p id="food-price"><b>Giá: @concession.ConcessionPrice đ</b></p>
+                                                    </td>
+                                                    <td class="image" style="width: 20%;">
+                                                        <img src="@concession.ConcessionImg" alt="" width="100px" height="100px">
+                                                    </td>
+                                                    <td style="width: 20%;">
+                                                        <div class="buttons_added_food">
+                                                            <input class="food-minus food" type="button" value="--">
+                                                            <input aria-label="quantity" class="food-qty" max="10" min="0" name="" type="number" value="0">
+                                                            <input class="food-plus food" type="button" value="+">
+                                                        </div>
+                                                    </td>
+                                                    <td id="total-food-price" style="width: 20%">0 đ</td>
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                <tr class="table-content content-2">
+                                                    <td style="width: 40%;">
+                                                        <h4 class="food-name">@concession.ConcessionName</h4>
+                                                        <p id="food-price"><b>Giá: @concession.ConcessionPrice đ</b></p>
+                                                    </td>
+                                                    <td class="image" style="width: 20%;">
+                                                        <img src="@concession.ConcessionImg" alt="" width="100px" height="100px">
+                                                    </td>
+                                                    <td style="width: 20%;">
+                                                        <div class="buttons_added_food">
+                                                            <input class="food-minus food" type="button" value="--">
+                                                            <input aria-label="quantity" class="food-qty" max="10" min="0" name="" type="number" value="0">
+                                                            <input class="food-plus food" type="button" value="+">
+                                                        </div>
+                                                    </td>
+                                                    <td id="total-food-price" style="width: 20%">0 đ</td>
+                                                </tr>
+                                            }
+                                        }
+                                        foodIndex++;
+                                    }
+                                    <!-- nước ngọt -->
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="screen"></div>
+
+            @{
+                var count = 0;
+                var seatCount = ViewBag.Seats.Count;
+                var maxRows = 8;
+                var tickets = ViewBag.Tickets as List<Ticket>;
+                var showtime = ViewBag.Showtime as Showtime;
+            }
+
+            @for (int row = 0; row < maxRows; row++)
+            {
+                <div class="grid-container">
+                    @for (int col = 0; col < 12; col++)
+                    {
+                        if (count < seatCount)
+                        {
+                            var seat = ViewBag.Seats[count];
+                            bool isBooked = tickets.Any(ticket => ticket.SeatId == seat.SeatId && ticket.ShowtimeId == showtime.ShowtimeId && ticket.IsBooked);
+                            <script>
+                                console.log('Seat: @seat.SeatName, IsBooked: @isBooked');
+                            </script>
+
+                            <div class="icon-container">
+                                <div class="seat @(isBooked ? "occupied" : "")">
+                                    <span class="icon-text">@seat.SeatName</span>
+                                </div>
+                            </div>
+
+                            count++;
+                        }
+                    }
+                </div>
+            }
+
+            <!-- chú thích -->
+            <ul class="showcase">
+                <li>
+                    <div class="seat"></div>
+                    <small>Ghế trống</small>
+                </li>
+                <li>
+                    <div class="seat selected" style="background-color: #cf0000;"></div>
+                    <small>Ghế đã đặt</small>
+                </li>
+                <li>
+                    <div class="seat occupied" style="background-color: #80db56;"></div>
+                    <small>Ghế đang chọn</small>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-sm-3 detail">
+        <div class="row poster">
+            @{
+                var movies = ViewBag.Movies as List<Movie>;
+                var rooms = ViewBag.Rooms as List<Room>;
+                var cinemas = ViewBag.Cinemas as List<Cinema>;
+
+                var movie = movies.FirstOrDefault(m => m.MovieId == showtime.MovieId);
+                var room = rooms.FirstOrDefault(r => r.RoomId == showtime.RoomId);
+                var cinema = cinemas.FirstOrDefault(c => c.CinemaId == room.CinemaId);
+            }
+
+            <div class="col-sm-5">
+                <img src="@movie.Poster" alt="" height="200px">
+            </div>
+            <div class="col-sm-7 movie-name">
+                <p>@movie.MovieName</p>
+            </div>
+        </div>
+
+        <div class="information">
+            <p>
+                <b>Rạp: </b><span id="rap">@cinema.CinemaName</span>
+            </p>
+            <p>
+                <b>Suất chiếu: </b><span id="suatChieu">@showtime.StartTime | @showtime.ShowDate</span>
+            </p>
+            <div>
+                <p id="selectSeat"><b>Ghế: </b><span class="selectedSeatsHolder" id="selectedSeatsHolder"></span></p>
+            </div>
+            <p id="food"><b>Thức ăn: </b><span id="selectedFoodsHolder"></span></p>
+            <p id="total" class="bill"><b>Thành tiền: </b><span id="totalPrice"></span></p>
+        </div>
+
+        <div class="btn-checkout">
+            <button class="btn btn-lg" onclick="back()">QUAY LẠI</button>
+            <button class="btn btn-lg" style="float: right;" onclick="checkout()">THANH TOÁN</button>
+        </div>
+    </div>
+</div>
+
+<script src="~/Content/js/booking.js"></script>

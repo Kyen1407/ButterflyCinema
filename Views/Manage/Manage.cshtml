@@ -1,0 +1,98 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BUTTERFLY CINEMA</title>
+    <link rel="icon" href="~/Content/img/logo6.png" type="image/x-icon">
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/css/manage.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Paytone+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Monoton&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.all.min.js"></script>
+    <script src="~/Content/js/jquery-2.1.1.min.js"></script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <section id="top">
+        <div class="container">
+            <div class="row">
+                <div class="top_2_left">
+                    <h1>BUTTERFLY CINEMA <span>A BUTTERFLY NEVER DIES</span></h1>
+                    <i class="fa fa-sign-out"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div>
+        <div>
+            @{
+                var activeTab = ViewBag.ActiveTab; // Mặc định là "cinema"
+            }
+
+            <ul class="nav nav-tabs">
+                <li class="@((activeTab == "cinema") ? "active" : "")"><a href="#cinema" data-toggle="tab">RẠP</a></li>
+                <li class="@((activeTab == "room") ? "active" : "")"><a href="#room" data-toggle="tab">PHÒNG</a></li>
+                <li class="@((activeTab == "film") ? "active" : "")"><a href="#film" data-toggle="tab">PHIM</a></li>
+                <li class="@((activeTab == "showtime") ? "active" : "")"><a href="#showtime" data-toggle="tab">SUẤT CHIẾU</a></li>
+                <li class="@((activeTab == "food") ? "active" : "")"><a href="#food" data-toggle="tab">THỨC ĂN</a></li>
+                <li class="@((activeTab == "news") ? "active" : "")"><a href="#news" data-toggle="tab">BẢNG TIN</a></li>
+                <li class="@((activeTab == "customer") ? "active" : "")"><a href="#customer" data-toggle="tab">KHÁCH HÀNG</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <!-- Quản lý rạp -->
+                <div class="tab-pane @(activeTab == "cinema" ? "active" : "")" id="cinema">
+                    @Html.Partial("_ManageCinema")
+                </div>
+
+                <!-- Quản lý phòng -->
+                <div class="tab-pane @(activeTab == "room" ? "active" : "")" id="room">
+                    @Html.Partial("_ManageRoom")
+                </div>
+
+                <!-- Quản lý phim -->
+                <div class="tab-pane @(activeTab == "film" ? "active" : "")" id="film">
+                    @Html.Partial("_ManageMovie")
+                </div>
+
+                <!-- Quản lý suất chiếu -->
+                <div class="tab-pane @(activeTab == "showtime" ? "active" : "")" id="showtime">
+                    @Html.Partial("_ManageShowtime")
+                </div>
+
+                <!-- Quản lý thức ăn -->
+                <div class="tab-pane @(activeTab == "food" ? "active" : "")" id="food">
+                    @Html.Partial("_ManageFood")
+                </div>
+
+                <!-- Quản lý bảng tin -->
+                <div class="tab-pane @(activeTab == "news" ? "active" : "")" id="news">
+                    @Html.Partial("_ManageNews")
+                </div>
+
+                <!-- Quản lý khách hàng -->
+                <div class="tab-pane @(activeTab == "customer" ? "active" : "")" id="customer">
+                    @Html.Partial("_ManageAccount")
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Content/js/home.js"></script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    ViewBag.Title = "Movies";
+}
+
+<link href="~/Content/css/movies.css" rel="stylesheet">
+
+<section id="header" class="clearfix cd-secondary-nav">
+    <div class="container">
+        <div class="row">
+            <div class="header_main clearfix">
+                <nav class="navbar navbar-default">
+                    <div class="navbar-header">
+                        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">BUTTERFLY CINEMA <span>A BUTTERFLY NEVER DIES</span></a>
+                    </div>
+
+
+                    <div class="collapse navbar-collapse js-navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a class="font_tag" href="/Home/Index">TRANG CHỦ</a></li>
+                            <li><a class="font_tag active_tag" href="/Movies/Movies">PHIM</a></li>
+                            <li><a class="font_tag" href="/Pricing/Pricing">RẠP VÀ GIÁ</a></li>
+                            <li><a class="font_tag" href="/Ads/Ads">KHUYẾN MÃI</a></li>
+                            <li><a class="font_tag" href="/Event/Event">BẢNG TIN</a></li>
+                            <li><a class="font_tag border_none_1" href="/Contact/Contact">LIÊN HỆ</a></li>
+                        </ul>
+
+                    </div><!-- /.nav-collapse -->
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="booking">
+    <div class="container">
+        <div class="row">
+            <div class="booking clearfix">
+                <div class="booking_left_main clearfix">
+                    <ul class="nav nav-tabs" style="text-align:center">
+                        <li class="active"><a data-toggle="tab" href="#home">PHIM HOT</a></li>
+                        <li><a data-toggle="tab" href="#menu1">ĐANG CHIẾU</a></li>
+                        <li><a data-toggle="tab" href="#menu2">SẮP CHIẾU</a></li>
+                    </ul>
+
+                    <div class="tab-content clearfix">
+                        <div id="home" class="tab-pane fade in active clearfix">
+                            <div class="click clearfix">
+                                @{
+                                    var maxRows = 10;
+                                    var count = 0;
+                                    var movieCount = ViewBag.Movies.Count;
+                                }
+
+                                @for (int row = 0; row < maxRows; row++)
+                                {
+                                    <div class="click_2 clearfix">
+                                        @for (int col = 0; col < 2; col++)
+                                        {
+                                            if (count < movieCount)
+                                            {
+                                                var movie = ViewBag.Movies[count];
+
+                                                if (movie.Rating >= 7)
+                                                {
+                                                    <div class="col-sm-6">
+                                                        <div class="click_2_inner clearfix">
+                                                            <a href="/Movies/Detail">
+                                                                <div class="movie-item" style="width: 100%; height: 400px;">
+                                                                    <div class="col-sm-6" style="height: 400px;">
+                                                                        <a href="@Url.Action("Detail", "Home", new { id = movie.MovieId })">
+                                                                            <img class="movie-item-img" src="@movie.Poster" width="100%" height="350px">
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="col-sm-6" style="height: 400px;">
+                                                                        <a href="@Url.Action("Detail", "Home", new { id = movie.MovieId })">
+                                                                            <p class="movie-item-txt"><b>@movie.MovieName</b><br>@movie.Description</p>
+                                                                        </a>
+                                                                        <a href="@Url.Action("Detail", "Home", new { id = movie.MovieId })"><button class="btn btn-lg btn-booking">ĐẶT VÉ</button></a>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    count++;
+                                                }
+                                                else
+                                                {
+                                                    count++;
+                                                    col--;
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                        <div id="menu1" class="tab-pane fade clearfix">
+                            <div class="click clearfix">
+                                @{
+                                    count = 0;
+                                    var today = DateOnly.FromDateTime(DateTime.Today);
+                                }
+
+                                @for (int row = 0; row < maxRows; row++)
+                                {
+                                    <div class="click_2 clearfix">
+                                        @for (int col = 0; col < 2; col++)
+                                        {
+                                            if (count < movieCount)
+                                            {
+                                                var movie = ViewBag.Movies[count];
+
+                                                if (movie.ReleaseDate <= today)
+                                                {
+                                                    <div class="col-sm-6">
+                                                        <div class="click_2_inner clearfix">
+                                                            <a href="/Movies/Detail">
+                                                                <div class="movie-item" style="width: 100%; height: 400px;">
+                                                                    <div class="col-sm-6" style="height: 400px;">
+                                                                        <a href="@Url.Action("Detail", "Home", new { id = movie.MovieId })">
+                                                                            <img class="movie-item-img" src="@movie.Poster" width="100%" height="350px">
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="col-sm-6" style="height: 400px;">
+                                                                        <a href="@Url.Action("Detail", "Home", new { id = movie.MovieId })">
+                                                                            <p class="movie-item-txt"><b>@movie.MovieName</b><br>@movie.Description</p>
+                                                                        </a>
+                                                                        <a href="@Url.Action("Detail", "Home", new { id = movie.MovieId })"><button class="btn btn-lg btn-booking">ĐẶT VÉ</button></a>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    count++;
+                                                }
+                                                else
+                                                {
+                                                    count++;
+                                                    col--;
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div id="menu2" class="tab-pane fade clearfix">
+                            <div class="click clearfix">
+                                @{
+                                    count = 0;
+                                }
+
+                                @for (int row = 0; row < maxRows; row++)
+                                {
+                                    <div class="click_2 clearfix">
+                                        @for (int col = 0; col < 2; col++)
+                                        {
+                                            if (count < movieCount)
+                                            {
+                                                var movie = ViewBag.Movies[count];
+
+                                                if (movie.ReleaseDate > today)
+                                                {
+                                                    <div class="col-sm-6">
+                                                        <div class="click_2_inner clearfix">
+                                                            <a href="/Movies/Detail">
+                                                                <div class="movie-item" style="width: 100%; height: 400px;">
+                                                                    <div class="col-sm-6" style="height: 400px;">
+                                                                        <a href="@Url.Action("Detail", "Home", new { id = movie.MovieId })">
+                                                                            <img class="movie-item-img" src="@movie.Poster" width="100%" height="350px">
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="col-sm-6" style="height: 400px;">
+                                                                        <a href="@Url.Action("Detail", "Home", new { id = movie.MovieId })">
+                                                                            <p class="movie-item-txt"><b>@movie.MovieName</b><br>@movie.Description</p>
+                                                                        </a>
+                                                                        <a href="@Url.Action("Detail", "Home", new { id = movie.MovieId })"><button class="btn btn-lg btn-booking">ĐẶT VÉ</button></a>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    count++;
+                                                }
+                                                else
+                                                {
+                                                    count++;
+                                                    col--;
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

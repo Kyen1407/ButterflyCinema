@@ -1,0 +1,141 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = ButterflyCinema
+build_property.RootNamespace = ButterflyCinema
+build_property.ProjectDir = E:\LAPTRINH\DotNet\MyProject\Github\ButterflyCinema\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = E:\LAPTRINH\DotNet\MyProject\Github\ButterflyCinema
+build_property._RazorSourceGeneratorDebug = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Ads/Ads.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRzXEFkcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Booking/Booking.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va2luZ1xCb29raW5nLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Checkout/Checkout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hlY2tvdXRcQ2hlY2tvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Contact/Contact.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFjdFxDb250YWN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Event/Event.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRcRXZlbnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Manage/ConfirmDelete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlXENvbmZpcm1EZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Manage/DeleteRoom.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlXERlbGV0ZVJvb20uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Manage/EditCinema.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlXEVkaXRDaW5lbWEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Manage/EditMovie.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlXEVkaXRNb3ZpZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Manage/EditRoom.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlXEVkaXRSb29tLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Manage/EditShowtime.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlXEVkaXRTaG93dGltZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Manage/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Manage/Manage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlXE1hbmFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Manage/ManageTicket.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlXE1hbmFnZVRpY2tldC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Manage/_ManageAccount.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlXF9NYW5hZ2VBY2NvdW50LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Manage/_ManageCinema.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlXF9NYW5hZ2VDaW5lbWEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Manage/_ManageFood.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlXF9NYW5hZ2VGb29kLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Manage/_ManageMovie.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlXF9NYW5hZ2VNb3ZpZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Manage/_ManageNews.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlXF9NYW5hZ2VOZXdzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Manage/_ManageRoom.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlXF9NYW5hZ2VSb29tLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Manage/_ManageShowtime.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlXF9NYW5hZ2VTaG93dGltZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Movies/Detail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTW92aWVzXERldGFpbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Movies/Movies.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTW92aWVzXE1vdmllcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Pricing/Pricing.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJpY2luZ1xQcmljaW5nLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/LAPTRINH/DotNet/MyProject/Github/ButterflyCinema/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-95tapf9x15

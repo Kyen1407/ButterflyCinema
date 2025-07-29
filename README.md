@@ -7,8 +7,56 @@ Dự án hỗ trợ quản lý toàn diện các nghiệp vụ rạp chiếu phi
 
 ---
 
+## 🎬 Butterfly Cinema - Demo Screenshots
+
 ### 🏠 Home Page
-![Home Page](./Screenshots/Home1.png)
+![Home1](./Screenshots/Home1.png)
+![Home2](./Screenshots/Home2.png)
+![Home3](./Screenshots/Home3.png)
+![Home4](./Screenshots/Home4.png)
+![Home5](./Screenshots/Home5.png)
+
+### 🎟️ Booking Page
+![Booking1](./Screenshots/Booking1.png)
+![Booking2](./Screenshots/Booking2.png)
+![Booking3](./Screenshots/Booking3.png)
+![Booking4](./Screenshots/Booking4.png)
+![Checkout](./Screenshots/Checkout.png)
+
+### 🛠️ Admin & Authentication
+![Login](./Screenshots/Login.png)
+![Register](./Screenshots/Register.png)
+![Forgot Password](./Screenshots/ForgotPassword.png)
+![Admin1](./Screenshots/Manage1.png)
+![Admin2](./Screenshots/Manage2.png)
+![Admin3](./Screenshots/Manage3.png)
+![Admin4](./Screenshots/Manage4.png)
+![Admin5](./Screenshots/Manage5.png)
+![Admin6](./Screenshots/Manage6.png)
+![Admin7](./Screenshots/Manage7.png)
+![Admin8](./Screenshots/Manage8.png)
+![Admin9](./Screenshots/Manage9.png)
+
+### 🎞️ Movie Details & Listing
+![ListMovies](./Screenshots/ListMovies.png)
+![MovieDetail1](./Screenshots/MovieDetail1.png)
+![MovieDetail2](./Screenshots/MovieDetail2.png)
+![MovieDetail3](./Screenshots/MovieDetail3.png)
+
+### 📰 News & Information
+![News1](./Screenshots/News1.png)
+![News2](./Screenshots/News2.png)
+![News3](./Screenshots/News3.png)
+![Info](./Screenshots/info.png)
+
+### 💬 Contact Page
+![Contact1](./Screenshots/Contact1.png)
+![Contact2](./Screenshots/Contact2.png)
+![Contact3](./Screenshots/Contact3.png)
+
+### 🎁 Discount Page
+![Discount](./Screenshots/Discount.png)
+
 
 ## 🚀 Tính năng nổi bật
 

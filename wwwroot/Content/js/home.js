@@ -61,10 +61,10 @@ function initFixedMenu() {
         var secondaryNavTopPosition = secondaryNav.offset().top;
         $(window).on('scroll', function () {
             if ($(window).scrollTop() > secondaryNavTopPosition) {
-                secondaryNav.addClass('is-fixed');
-            } else {
-                secondaryNav.removeClass('is-fixed');
-            }
+			secondaryNav.addClass('is-fixed');	
+		} else {
+			secondaryNav.removeClass('is-fixed');
+		}
         });
     }
 }
@@ -140,16 +140,16 @@ function bindLoginEvents() {
         loginButton.addEventListener('click', function(e) {
             e.preventDefault();
             handleLogin();
-        });
+	});	
         console.log("Đã gán event cho nút đăng nhập");
     }
-    
+		
     // Event cho Enter key trong form đăng nhập
     $('#modalLogin #email, #modalLogin #pass').on('keyup', function(e) {
         if (e.key === 'Enter') {
             handleLogin();
         }
-    });
+});
 }
 
 // =====================================================================
@@ -165,7 +165,7 @@ function bindRegisterEvents() {
         console.log("Đã gán event cho nút đăng ký");
     }
 }
-
+	
 // =====================================================================
 // EVENT QUÊN MẬT KHẨU
 // =====================================================================
@@ -178,7 +178,7 @@ function bindForgotPasswordEvents() {
                 if (isCorrect) {
                     console.log("Captcha đúng, xử lý quên mật khẩu");
                     handleForgotPasswordRequest();
-                }
+}
             });
         });
         console.log("Đã gán event cho nút gửi quên mật khẩu");
@@ -200,7 +200,7 @@ function handleLogin() {
     if (!email || !password) {
         errorMessage.text('Vui lòng nhập email và mật khẩu.');
         return;
-    }
+}
 
     // Hiển thị loading
     var loginButton = document.querySelector('#modalLogin .btn-login');
@@ -286,13 +286,14 @@ function handleRegister() {
         errorMessageElement.text('Bạn phải đồng ý với chính sách bảo mật.');
         return;
     }
-    
+
     // Validate email format
     if (!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)) {
         errorMessageElement.text('Email không đúng định dạng.');
         return;
     }
-    
+    else {
+
     // Validate phone format
     if (!/^\d{10,11}$/.test(phone)) {
         errorMessageElement.text('Số điện thoại không đúng định dạng.');
@@ -333,7 +334,7 @@ function handleRegister() {
                 });
             } else {
                 errorMessageElement.text(response.message || 'Đăng ký thất bại. Vui lòng thử lại.');
-            }
+}
         },
         error: function (xhr, status, error) {
             Swal.fire({
@@ -356,7 +357,7 @@ function handleRegister() {
 // =====================================================================
 function handleForgotPasswordRequest() {
     console.log("Quên mật khẩu được kích hoạt");
-    
+
     // Sử dụng đúng ID từ HTML
     var email = $('#modalFogotPass #emailFogotPass').val();
     var errorMessageElement = $('#modalFogotPass #output');
@@ -423,6 +424,7 @@ function generate_captcha() {
     }
     
     let emptyArr = [];
+
     for (let i = 1; i <= 7; i++) {
         emptyArr.push(alphaNums[Math.floor(Math.random() * alphaNums.length)]);
     }
@@ -436,20 +438,21 @@ function generate_captcha() {
     
     if (outputCaptcha) outputCaptcha.innerHTML = "";
     if (userTextInput) userTextInput.value = "";
-    
+
     console.log("Đã tạo captcha mới: " + currentCaptchaStr);
 }
 
 function check_captcha(callback) {
     var userTextInput = document.getElementById('textBox');
     var outputCaptcha = document.getElementById('output');
-    
+
     if (!userTextInput || !outputCaptcha) {
         console.error("Không tìm thấy elements captcha");
         if (typeof callback === 'function') callback(false);
         return;
-    }
-    
+}
+generate_captcha();
+
     if (userTextInput.value === currentCaptchaStr) {
         outputCaptcha.className = "correctCaptcha";
         outputCaptcha.innerHTML = "Chính xác!";
@@ -464,7 +467,7 @@ function check_captcha(callback) {
             callback(false);
         }
     }
-}
+    }
 
 // =====================================================================
 // CÁC HÀM TIỆN ÍCH (GIỮ NGUYÊN)
@@ -476,7 +479,8 @@ function srcChange(src) {
 
 function detailAds(idAds) {
     window.location.href = '/Ads/Ads?from=index&idads=' + idAds;
-}
+    }
+});
 
 function back() {
     history.back();
@@ -487,6 +491,7 @@ function updateButton(input, idSelect) {
 }
 
 function showAllRoom(idSelect, idObjectTable) {
+    // Hiện tên rạp lên dropdown
     document.getElementById(idSelect).textContent = "Tất cả";
     var rows = document.querySelectorAll("#" + idObjectTable + " tbody tr");
     var count = 0;
@@ -499,7 +504,10 @@ function showAllRoom(idSelect, idObjectTable) {
 }
 
 function filterRooms(cinemaId, cinemaName, idSelect, idObjectTable) {
+    // Hiện tên rạp lên dropdown
     document.getElementById(idSelect).textContent = cinemaName;
+
+    // Ẩn tất cả các phòng
     var rows = document.querySelectorAll("#" + idObjectTable + " tbody tr");
     var count = 0;
 
@@ -507,6 +515,7 @@ function filterRooms(cinemaId, cinemaName, idSelect, idObjectTable) {
         row.style.display = "none";
     });
 
+    // Hiện các phòng thuộc rạp được chọn
     rows.forEach(function (row) {
         if (row.getAttribute("data-cinema-id") === cinemaId) {
             row.style.display = "";

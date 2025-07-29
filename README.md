@@ -112,24 +112,22 @@ ButterflyCinema/
 
 ---
 
-## 🧰 Mô hình dữ liệu (16 bảng chính)
+## 🧰 Mô hình dữ liệu (14 bảng chính)
 
 * `Cinema` – Rạp chiếu phim
 * `Room` – Phòng chiếu
-* `Seat` – Ghế trong phòng
+* `Seat` – Ghế ngồi
 * `Movie` – Phim
 * `Showtime` – Suất chiếu
-* `Ticket` – Vé
-* `Concession` – Món ăn
-* `Combo` – Gói combo
-* `ComboItem` – Chi tiết combo
-* `Invoice` – Hóa đơn
-* `Payment` – Thanh toán
+* `Ticket` – Vé xem phim
 * `User` – Người dùng
 * `Role` – Vai trò người dùng
-* `Staff` – Nhân viên
-* `Booking` – Đặt vé
-* `Ads` – Quảng cáo
+* `Invoice` – Hóa đơn
+* `Invoicedetail` – Chi tiết hóa đơn
+* `Combo` – Combo đồ ăn
+* `Comboitem` – Món trong combo
+* `Concession` – Đồ ăn bán lẻ
+* `News` – Tin tức
 
 ---
 

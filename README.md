@@ -67,7 +67,6 @@ Dự án hỗ trợ quản lý toàn diện các nghiệp vụ rạp chiếu phi
 * **Vé (Ticket):** Sinh vé theo ghế và suất chiếu, đặt vé, kiểm tra trạng thái.
 * **Món ăn & Combo (Concession, Combo, ComboItem):** Quản lý sản phẩm, tình trạng bán.
 * **Hóa đơn & Thanh toán (Invoice, Payment):** Lưu thông tin thanh toán, hình thức thanh toán.
-* **Người dùng & Phân quyền (User, Staff, Role):** Đăng nhập, phân quyền.
 * **Quảng cáo (Ads):** Quản lý quảng cáo hiển thị trên trang chủ.
 * **Đặt vé online:** Chọn phim, suất chiếu, ghế và thanh toán trực tuyến.
 
@@ -81,7 +80,6 @@ Dự án hỗ trợ quản lý toàn diện các nghiệp vụ rạp chiếu phi
 | ORM                   | Entity Framework Core             |
 | Cơ sở dữ liệu         | PostgreSQL                        |
 | Frontend              | Razor Pages, Bootstrap, jQuery    |
-| Xác thực & phân quyền | Role-based Authorization          |
 | Migration             | EF Core Migration                 |
 
 ---
@@ -90,22 +88,26 @@ Dự án hỗ trợ quản lý toàn diện các nghiệp vụ rạp chiếu phi
 
 ```
 ButterflyCinema/
-│
-├── Controllers/           # Xử lý logic cho các Razor Pages
-├── Models/                # Chứa các Entity, ViewModel, và DbContext
-├── Migrations/            # Các file migration của Entity Framework
-├── Views/                 # Razor Pages (.cshtml)
-│   ├── Shared/            # Layouts, partial views dùng chung
-│   └── [ChứcNăng]/		   # Các trang chức năng cụ thể
-├── wwwroot/               # Static files (JS, CSS, images, fonts)
-│   └── Content/
-│       └── js/            # JavaScript cho từng chức năng
-│       └── css/           # Css cho từng chức năng
-│       └── img/           # Ảnh của dự án
-│       └── font/          # Font chữ cho dự án
-├── appsettings.json       # File cấu hình (kết nối DB, logging, ...)
-├── Program.cs             # Điểm khởi tạo ứng dụng
-└── README.md              # Tài liệu mô tả dự án
+├── Connected Services/       # Dịch vụ được kết nối (nếu có dùng API ngoài)
+├── Dependencies/             # Các thư viện nuget được cài
+├── Properties/               # Cấu hình ứng dụng (launchSettings.json, v.v.)
+├── wwwroot/                  # Thư mục tĩnh chứa CSS, JS, ảnh
+│   ├── Content/
+│   │   ├── css/
+│   │   ├── fonts/
+│   │   ├── img/
+│   │   └── js/
+├── Context/                  # Lớp DbContext và cấu hình cơ sở dữ liệu
+├── Controllers/              # Các controller xử lý logic request/response
+├── Migrations/               # Quản lý schema và migration của Entity Framework
+├── Models/                   # Các lớp dữ liệu (Entity/DTO)
+├── Screenshots/              # Ảnh chụp màn hình dùng trong README.md
+├── Services/                 # Các service hỗ trợ nghiệp vụ (Business Logic)
+├── Views/                    # Các file giao diện Razor (.cshtml)
+├── appsettings.json          # File cấu hình ứng dụng
+├── Program.cs                # Điểm khởi chạy ứng dụng
+└── README.md                 # Mô tả dự án
+
 ```
 
 ---

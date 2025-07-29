@@ -198,10 +198,14 @@ namespace ButterflyCinema.Controllers
                     }
 
                     var seatName = $"{rowLetter}{seatNumber:D2}";
+                    int sequentialSeatNumber = i + 1;
+                    // Ghép RoomId với số thứ tự ghế
+                    var seatId = $"{room.CinemaId}{room.RoomId}{sequentialSeatNumber}";
 
                     var seat = new Seat
                     {
-                        SeatId = $"{room.RoomId}{i:D2}",
+                        // Sử dụng seatId mới tạo
+                        SeatId = seatId,
                         RoomId = room.RoomId,
                         SeatName = seatName,
                         SeatType = new BitArray(new[] { false })
@@ -480,9 +484,9 @@ namespace ButterflyCinema.Controllers
                 }
 
                 // Kiểm tra thời gian kết thúc có bằng thời lượng phim không
-                if (endTimeSpan - startTimeSpan != movieDuration)
+                if (endTimeSpan - startTimeSpan != movieDuration.Add(new TimeSpan(0, 20, 0)))
                 {
-                    ViewBag.errorMessage = "Thời gian kết thúc phải bằng với thời lượng phim";
+                    ViewBag.errorMessage = "Thời gian kết thúc phải bằng thời lượng phim cộng thêm 20 phút để dọn dẹp rạp.";
                     return View("Error", new { tab = "showtime" });
                 }
 

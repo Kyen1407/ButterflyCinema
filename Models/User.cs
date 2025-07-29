@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Models/User.cs
+using System;
 using System.Collections.Generic;
 
 namespace ButterflyCinema.Models;
@@ -19,9 +20,12 @@ public partial class User
 
     public DateOnly? Birthday { get; set; }
 
-    public string? RoleId { get; set; }
+    public string? RoleId { get; set; } // Giữ nguyên kiểu string
 
     public DateOnly? CreationDate { get; set; }
+
+    public bool IsEmailVerified { get; set; } // Thêm trường xác thực email
+    public string? EmailVerificationToken { get; set; } // Thêm trường token xác thực email
 
     public virtual ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
 

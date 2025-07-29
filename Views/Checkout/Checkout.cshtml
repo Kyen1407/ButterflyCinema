@@ -50,7 +50,7 @@
             <!-- <div class="bg"> -->
             <!-- <p>Vui lòng thanh toán</p> -->
             <div class="payment">
-                <form action="">
+                <form id="checkoutForm" method="post">
                     <div class="row">
                         <div class="col-sm-4">
                             <label for="method">Phương thức thanh toán</label>
@@ -70,7 +70,7 @@
                             <label for="name">Họ và tên</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" id="name" name="name" placeholder="Họ và tên" required>
+                            <input type="text" id="userName" name="name" placeholder="Họ và tên" required>
                         </div>
                     </div>
 
@@ -79,7 +79,7 @@
                             <label for="email">Email</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" id="email" name="email" placeholder="Nhập email" required>
+                            <input type="text" id="userEmail" name="email" placeholder="Nhập email" required>
                         </div>
                     </div>
 
@@ -107,7 +107,7 @@
                             <p style="color: red; font-size: 15px; font-weight: bold;">Lưu ý: Nhập chính xác email để nhận mã đặt vé</p>
                             <div class="btn-checkout">
                                 <button class="btn btn-lg" onclick="back()">QUAY LẠI</button>
-                                <button type="submit" class="btn btn-lg" style="float: right;">THANH TOÁN</button>
+                                <button type="button" id="payBtn" class="btn btn-lg" style="float: right;">THANH TOÁN</button>
                             </div>
                         </div>
                     </div>
@@ -143,5 +143,112 @@
     </div>
 </div>
 
+<script>
+    // Xử lý sự kiện khi người dùng chọn phương thức thanh toán
+    document.getElementById("payBtn").addEventListener("click", function () {
+        var method = document.getElementById("method").value;
+        var customerName = document.getElementById("userName").value;
+        var customerEmail = document.getElementById("userEmail").value;
+        var customerPhone = document.getElementById("sdt").value;
+
+        // Thêm console.log để kiểm tra giá trị sau khi lấy được
+        console.log("Phương thức:", method);
+        console.log("Tên khách hàng:", customerName);
+        console.log("Email khách hàng:", customerEmail);
+        console.log("Số điện thoại:", customerPhone);
+
+        // --- Bắt đầu chuỗi kiểm tra ---
+        let isValid = true;
+        let errorMessage = '';
+
+        if (!method) {
+            errorMessage = 'Vui lòng chọn phương thức thanh toán!';
+            isValid = false;
+        } else if (!customerName.trim()) {
+            errorMessage = 'Vui lòng nhập họ và tên của bạn!';
+            isValid = false;
+        } else if (!customerEmail.trim()) {
+            errorMessage = 'Vui lòng nhập email của bạn!';
+            isValid = false;
+        } else if (!customerPhone.trim()) {
+            errorMessage = 'Vui lòng nhập số điện thoại của bạn!';
+            isValid = false;
+        }
+
+        if (!isValid) {
+            Swal.fire({ icon: 'warning', title: 'Thiếu thông tin!', text: errorMessage });
+            return;
+        }
+
+        document.getElementById("payBtn").disabled = true;
+
+        if (method === "momo") {
+            fetch('/Checkout/MomoPayment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    amount: document.getElementById("totalPrice").textContent,
+                    orderInfo: "Thanh toán vé xem phim Butterfly Cinema",
+                    selectedSeats: localStorage.getItem("selectedSeats"),
+                    showtimeId: new URLSearchParams(window.location.search).get("showtimeId"),
+                    customerName: customerName,
+                    customerEmail: customerEmail,
+                    customerPhone: customerPhone
+                })
+            })
+            .then(response => {
+                console.log("Đã gửi yêu cầu thanh toán MoMo");
+                if (!response.ok) {
+                    return response.json().then(err => { throw new Error(err.message || `HTTP error! status: ${response.status}`); });
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Kết quả từ API MoMo:", data);
+                if (data.payUrl) {
+                    window.location.href = data.payUrl;
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Thanh toán thất bại!',
+                        text: data.message || 'Không thể tạo thanh toán MoMo! Vui lòng thử lại.'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error("Lỗi khi gọi API MoMo:", error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi hệ thống!',
+                    text: 'Đã xảy ra lỗi trong quá trình thanh toán MoMo. Vui lòng thử lại! (' + error.message + ')'
+                });
+            })
+            .finally(() => {
+                document.getElementById("payBtn").disabled = false;
+            });
+        } else if (method === "cod") {
+            var form = document.getElementById("checkoutForm");
+
+            let getOrCreateHiddenInput = (id, name, value) => {
+                let input = document.getElementById(id);
+                if (!input) {
+                    input = document.createElement("input");
+                    input.type = "hidden";
+                    input.id = id;
+                    input.name = name;
+                    form.appendChild(input);
+                }
+                input.value = value;
+                return input;
+            };
+
+            getOrCreateHiddenInput("hiddenCustomerName", "customerName", customerName);
+            getOrCreateHiddenInput("hiddenCustomerEmail", "customerEmail", customerEmail);
+            getOrCreateHiddenInput("hiddenCustomerPhone", "customerPhone", customerPhone);
+
+            document.getElementById("checkoutForm").submit();
+        }
+    });
+</script>
 <script src="~/Content/js/checkout.js"></script>
 

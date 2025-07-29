@@ -58,15 +58,11 @@
                             <div class="table-container">
                                 <table>
                                     <tr>
-                                        <th class="table-title-ticket">Loại vé</th>
                                         <th class="table-title-ticket">Số lượng</th>
                                         <th class="table-title-ticket">Giá</th>
                                         <th class="table-title-ticket">Tổng tiền</th>
                                     </tr>
                                     <tr class="table-content content-1">
-                                        <td style="width: 40%;">
-                                            <h4>Ghế đơn</h4>
-                                        </td>
                                         <td class="image" style="width: 20%;">
                                             <div class="buttons_added_ticket">
                                                 <input class="ticket-minus ticket" type="button" value="--">
@@ -74,10 +70,15 @@
                                                 <input class="ticket-plus ticket" type="button" value="+">
                                             </div>
                                         </td>
-                                        <td class="movie-price" id="moviePrice" style="width: 20%;">70000</td>
+
+                                        @{
+                                            var ticketPrice = ViewBag.Tickets as List<Ticket>;
+                                            var firstPrice = ticketPrice?.FirstOrDefault()?.TicketPrice;
+                                        }
+                                        <td class="movie-price" id="moviePrice" style="width: 20%;">@firstPrice</td>
+
                                         <td class="ticket-price" id="ticketPrice" style="width: 20%">0 đ</td>
                                     </tr>
-                                   
                                 </table>
                             </div>
                         </div>

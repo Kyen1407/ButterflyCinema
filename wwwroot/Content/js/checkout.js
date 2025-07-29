@@ -24,3 +24,4 @@ document.getElementById("movieName").textContent = movieName;
 
 var newURL = window.location.pathname;
 window.history.replaceState({}, document.title, newURL);
+

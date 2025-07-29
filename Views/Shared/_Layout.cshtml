@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BUTTERFLY CINEMA</title>
+    <script src="/Content/js/jquery-2.1.1.min.js"></script>
+    <script src="/Content/js/bootstrap.min.js"></script>
     <link rel="icon" href="~/Content/img/logo6.png" type="image/x-icon">
     <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/css/global.css" rel="stylesheet">
@@ -14,8 +16,9 @@
     <link href="https://fonts.googleapis.com/css?family=Monoton&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.all.min.js"></script>
-    <script src="~/Content/js/jquery-2.1.1.min.js"></script>
-    <script src="~/Content/js/bootstrap.min.js"></script>
+    
+    @* <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> *@
 </head>
 
 <body>
@@ -82,7 +85,7 @@
                         <input type="password" name="pass" id="pass" placeholder="Nhập mật khẩu">
                         <p id="erro"></p>
                         <div class="login-footer">
-                            <button class="btn-login btn btn-lg" onclick="checkLogin()">ĐĂNG NHẬP</button>
+                            <button class="btn-login btn btn-lg">ĐĂNG NHẬP</button>
                             <p data-toggle="modal" data-target="#modalFogotPass" data-dismiss="modal">QUÊN MẬT KHẨU</p>
                         </div>
                     </div>
@@ -101,7 +104,7 @@
                         <h3>QUÊN MẬT KHẨU</h3>
                         <p>Vui lòng cung cấp email đăng nhập, link kích hoạt sẽ được gửi đến trong ít phút.</p>
 
-                        <input type="text" name="email" id="email" placeholder="Nhập email">
+                        <input type="text" name="email" id="emailFogotPass" placeholder="Nhập email"> <!-- Changed ID here -->
 
                         <canvas id="captcha" width="150px" height="30px">captcha text</canvas>
                         <i id="refreshButton" type="submit" class="fa fa-refresh"></i>
@@ -146,7 +149,7 @@
                         <div class="policy">
                             <p style="margin-top:6.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:0in;font-size:17px;text-align:center;"><strong>CHÍNH SÁCH BẢO MẬT THÔNG TIN</strong></p>
                             <p style="margin-top:6.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:0in;font-size:17px;text-align:justify;">&nbsp;</p>
-                            <p style="margin-top:6.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:0in;font-size:17px;text-align:justify;"><strong>1. TỔNG QUAN VỀ CHÍNH SÁCH BẢO MẬT</strong></p>
+                            <p style="margin-top:6.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:0in;font-size:17px;text-align:justify;"><strong>1. TỔNG QUAN VỀ CHÍNH SÁch BẢO MẬT</strong></p>
                             <p style="margin-top:6.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:0in;font-size:17px;text-align:justify;">&nbsp;</p>
                             <p style="margin-top:6.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:0in;font-size:17px;text-align:justify;">BUTTERFLY hiểu rằng Khách Hàng quan tâm đến việc dữ liệu cá nhân của Khách Hàng sẽ được sử dụng và chia sẻ như thế nào. BUTTERFLY rất coi trọng sự tin tưởng của Khách Hàng, vì vậy BUTTERFLY sẽ sử dụng những dữ liệu mà Khách Hàng cung cấp một cách cẩn thận và hợp lý, phù hợp với quy định của pháp luật.</p>
                             <p style="margin-top:6.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:0in;font-size:17px;text-align:justify;">&nbsp;</p>
@@ -297,7 +300,7 @@
                         </div>
 
                         <p id="erro"></p>
-                        <button class="btn-register btn btn-lg" onclick="">ĐĂNG KÝ</button>
+                        <button class="btn-register btn btn-lg" id="registerButton">ĐĂNG KÝ</button> <!-- Changed ID here -->
                     </div>
                 </div>
             </div>
@@ -367,6 +370,11 @@
             </div>
         </div>
     </section>
+
+    <script>
+        console.log("jQuery version: ", $.fn.jquery);
+        console.log("$.fn.modal is:", typeof $.fn.modal);
+    </script>
 
     <script src="~/Content/js/home.js"></script>
 </body>

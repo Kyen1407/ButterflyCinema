@@ -266,7 +266,7 @@
                         listHtml += '<ul>';
                         groupedShowtimes[cinema].forEach(function (showtime) {
                             console.log(showtime);
-                            listHtml += `<li style="margin-right:5px"><a onclick="booking('${showtime.roomId}', '${showtime.showtimeId}')">${showtime.startTime}</a></li>`;
+                            listHtml += `<li style="margin-right:5px; margin-top: 5px"><a onclick="booking('${showtime.roomId}', '${showtime.showtimeId}')">${showtime.startTime}</a></li>`;
                         });
                         listHtml += '</ul>';
                         listHtml += '</div>';

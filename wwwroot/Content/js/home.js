@@ -27,16 +27,16 @@ var alphaNums = ['A', 'B', 'C', 'D', 'E', 'F', 'G',
 // =====================================================================
 $(document).ready(function () {
     console.log("Document ready - Khởi tạo ứng dụng");
-    
+
     // Cập nhật thời gian
     updateDateTime();
-    
+
     // Fixed Menu
     initFixedMenu();
-    
+
     // Khởi tạo captcha
     initCaptcha();
-    
+
     // Gán tất cả event listeners
     bindAllEvents();
 });
@@ -47,7 +47,7 @@ $(document).ready(function () {
 function updateDateTime() {
     var dayElement = document.getElementById("day");
     var timeElement = document.getElementById("time");
-    
+
     if (dayElement) dayElement.innerText = date;
     if (timeElement) timeElement.innerText = time;
 }
@@ -61,10 +61,10 @@ function initFixedMenu() {
         var secondaryNavTopPosition = secondaryNav.offset().top;
         $(window).on('scroll', function () {
             if ($(window).scrollTop() > secondaryNavTopPosition) {
-			secondaryNav.addClass('is-fixed');	
-		} else {
-			secondaryNav.removeClass('is-fixed');
-		}
+                secondaryNav.addClass('is-fixed');
+            } else {
+                secondaryNav.removeClass('is-fixed');
+            }
         });
     }
 }
@@ -78,7 +78,7 @@ function initCaptcha() {
         ctx = captchaTextCanvas.getContext("2d");
         ctx.font = "20px Roboto";
         ctx.fillStyle = "#cf0000";
-        generate_captcha();
+        generate_captcha(); // Dòng 81
     }
 }
 
@@ -87,16 +87,16 @@ function initCaptcha() {
 // =====================================================================
 function bindAllEvents() {
     console.log("Đang gán tất cả event listeners...");
-    
+
     // Event cho captcha
     bindCaptchaEvents();
-    
+
     // Event cho đăng nhập (thay thế onclick)
     bindLoginEvents();
-    
+
     // Event cho đăng ký (thay thế onclick)
     bindRegisterEvents();
-    
+
     // Event cho quên mật khẩu
     bindForgotPasswordEvents();
 }
@@ -107,7 +107,7 @@ function bindAllEvents() {
 function bindCaptchaEvents() {
     var userTextInput = document.getElementById('textBox');
     var refreshButton = document.getElementById('refreshButton');
-    
+
     if (userTextInput) {
         userTextInput.addEventListener('keyup', function (e) {
             if (e.key === 'Enter') {
@@ -119,9 +119,9 @@ function bindCaptchaEvents() {
             }
         });
     }
-    
+
     if (refreshButton) {
-        refreshButton.addEventListener('click', function(e) {
+        refreshButton.addEventListener('click', function (e) {
             e.preventDefault();
             generate_captcha();
         });
@@ -137,19 +137,19 @@ function bindLoginEvents() {
     if (loginButton) {
         // Xóa onclick cũ nếu có
         loginButton.removeAttribute('onclick');
-        loginButton.addEventListener('click', function(e) {
+        loginButton.addEventListener('click', function (e) {
             e.preventDefault();
             handleLogin();
-	});	
+        });
         console.log("Đã gán event cho nút đăng nhập");
     }
-		
+
     // Event cho Enter key trong form đăng nhập
-    $('#modalLogin #email, #modalLogin #pass').on('keyup', function(e) {
+    $('#modalLogin #email, #modalLogin #pass').on('keyup', function (e) {
         if (e.key === 'Enter') {
             handleLogin();
         }
-});
+    });
 }
 
 // =====================================================================
@@ -158,27 +158,27 @@ function bindLoginEvents() {
 function bindRegisterEvents() {
     var registerButton = document.getElementById('registerButton');
     if (registerButton) {
-        registerButton.addEventListener('click', function(e) {
+        registerButton.addEventListener('click', function (e) {
             e.preventDefault();
             handleRegister();
         });
         console.log("Đã gán event cho nút đăng ký");
     }
 }
-	
+
 // =====================================================================
 // EVENT QUÊN MẬT KHẨU
 // =====================================================================
 function bindForgotPasswordEvents() {
     var submitButton = document.getElementById('submitButton');
     if (submitButton) {
-        submitButton.addEventListener('click', function(e) {
+        submitButton.addEventListener('click', function (e) {
             e.preventDefault();
             check_captcha(function (isCorrect) {
                 if (isCorrect) {
                     console.log("Captcha đúng, xử lý quên mật khẩu");
                     handleForgotPasswordRequest();
-}
+                }
             });
         });
         console.log("Đã gán event cho nút gửi quên mật khẩu");
@@ -190,8 +190,8 @@ function bindForgotPasswordEvents() {
 // =====================================================================
 function handleLogin() {
     console.log("Đăng nhập được kích hoạt");
-    
-    var email = $('#modalLogin #email').val();
+
+    var email = $('#modalLogin #email').val().trim();
     var password = $('#modalLogin #pass').val();
     var errorMessage = $('#modalLogin #erro');
 
@@ -200,7 +200,7 @@ function handleLogin() {
     if (!email || !password) {
         errorMessage.text('Vui lòng nhập email và mật khẩu.');
         return;
-}
+    }
 
     // Hiển thị loading
     var loginButton = document.querySelector('#modalLogin .btn-login');
@@ -221,8 +221,7 @@ function handleLogin() {
                     showConfirmButton: false,
                     timer: 1500
                 }).then(() => {
-                    jQuery.noConflict();
-                    window.$('#modalLogin').modal('hide');
+                    $('#modalLogin').modal('hide');
                     window.location.href = '/Home/Index';
                 });
             } else {
@@ -238,7 +237,7 @@ function handleLogin() {
             });
             console.error("Lỗi đăng nhập: ", error);
         },
-        complete: function() {
+        complete: function () {
             // Khôi phục nút
             loginButton.textContent = originalText;
             loginButton.disabled = false;
@@ -251,12 +250,12 @@ function handleLogin() {
 // =====================================================================
 function handleRegister() {
     console.log("Đăng ký được kích hoạt");
-    
+
     var gender = $('input[name="gender"]:checked').val();
     var name = $('#name').val();
     var phone = $('#phone').val();
     var dob = $('#date').val();
-    var email = $('#re-email').val();
+    var email = $('#re-email').val().trim();
     var password = $('#regis-pass').val();
     var confirmPassword = $('#regis-re-pass').val();
     var agreePolicy = $('#agree').is(':checked');
@@ -292,7 +291,6 @@ function handleRegister() {
         errorMessageElement.text('Email không đúng định dạng.');
         return;
     }
-    else {
 
     // Validate phone format
     if (!/^\d{10,11}$/.test(phone)) {
@@ -312,7 +310,8 @@ function handleRegister() {
         Phone: phone,
         DateOfBirth: dob,
         Email: email,
-        Password: password
+        Password: password,
+        ConfirmPassword: confirmPassword
     };
 
     $.ajax({
@@ -325,16 +324,15 @@ function handleRegister() {
                 Swal.fire({
                     icon: 'success',
                     title: 'Đăng ký thành công!',
-                    text: 'Vui lòng kiểm tra email của bạn để xác thực tài khoản.',
+                    text: response.message || 'Vui lòng kiểm tra email của bạn để xác thực tài khoản.',
                     confirmButtonText: 'Đóng'
                 }).then(() => {
-                    jQuery.noConflict();
-                    window.$('#modalRegister').modal('hide');
+                    $('#modalRegister').modal('hide');
                     $('#modalRegister form')[0].reset();
                 });
             } else {
                 errorMessageElement.text(response.message || 'Đăng ký thất bại. Vui lòng thử lại.');
-}
+            }
         },
         error: function (xhr, status, error) {
             Swal.fire({
@@ -345,7 +343,7 @@ function handleRegister() {
             });
             console.error("Lỗi đăng ký: ", error);
         },
-        complete: function() {
+        complete: function () {
             registerButton.textContent = originalText;
             registerButton.disabled = false;
         }
@@ -368,7 +366,7 @@ function handleForgotPasswordRequest() {
         errorMessageElement.text('Vui lòng nhập email.');
         return;
     }
-    
+
     if (!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)) {
         errorMessageElement.text('Email không đúng định dạng.');
         return;
@@ -389,11 +387,10 @@ function handleForgotPasswordRequest() {
             Swal.fire({
                 icon: 'info',
                 title: 'Kiểm tra email',
-                text: 'Nếu email của bạn tồn tại trong hệ thống, một liên kết đặt lại mật khẩu đã được gửi đến bạn.',
+                text: response.message || 'Nếu email của bạn tồn tại trong hệ thống, một liên kết đặt lại mật khẩu đã được gửi đến bạn.',
                 confirmButtonText: 'Đóng'
             }).then(() => {
-                jQuery.noConflict();
-                window.$('#modalFogotPass').modal('hide');
+                $('#modalFogotPass').modal('hide');
                 $('#modalFogotPass form')[0].reset();
                 generate_captcha();
             });
@@ -407,7 +404,7 @@ function handleForgotPasswordRequest() {
             });
             console.error("Lỗi quên mật khẩu: ", error);
         },
-        complete: function() {
+        complete: function () {
             submitButton.textContent = originalText;
             submitButton.disabled = false;
         }
@@ -422,7 +419,7 @@ function generate_captcha() {
         console.warn("Canvas captcha chưa được khởi tạo");
         return;
     }
-    
+
     let emptyArr = [];
 
     for (let i = 1; i <= 7; i++) {
@@ -435,7 +432,7 @@ function generate_captcha() {
 
     var outputCaptcha = document.getElementById('output');
     var userTextInput = document.getElementById('textBox');
-    
+
     if (outputCaptcha) outputCaptcha.innerHTML = "";
     if (userTextInput) userTextInput.value = "";
 
@@ -450,8 +447,7 @@ function check_captcha(callback) {
         console.error("Không tìm thấy elements captcha");
         if (typeof callback === 'function') callback(false);
         return;
-}
-generate_captcha();
+    }
 
     if (userTextInput.value === currentCaptchaStr) {
         outputCaptcha.className = "correctCaptcha";
@@ -462,15 +458,15 @@ generate_captcha();
     } else {
         outputCaptcha.className = "incorrectCaptcha";
         outputCaptcha.innerHTML = "Captcha không hợp lệ!";
-        generate_captcha();
+        generate_captcha(); // Tạo lại captcha khi người dùng nhập sai
         if (typeof callback === 'function') {
             callback(false);
         }
     }
-    }
+}
 
 // =====================================================================
-// CÁC HÀM TIỆN ÍCH (GIỮ NGUYÊN)
+// CÁC HÀM TIỆN ÍCH
 // =====================================================================
 function srcChange(src) {
     document.getElementById('map').src = (src);
@@ -479,8 +475,7 @@ function srcChange(src) {
 
 function detailAds(idAds) {
     window.location.href = '/Ads/Ads?from=index&idads=' + idAds;
-    }
-});
+} // <-- Sửa lỗi cú pháp: xóa dấu `}` thừa ở đây
 
 function back() {
     history.back();
@@ -531,5 +526,5 @@ function filterRooms(cinemaId, cinemaName, idSelect, idObjectTable) {
 // =====================================================================
 // Các hàm này có thể được gọi từ onclick nếu cần
 window.checkLogin = handleLogin;
-window.handleForgotPasswordRequest = handleForgotPasswordRequest;
+window.handleForgotPasswordRequest = handleForgotPasswordRequest; // Dòng 534
 window.generate_captcha = generate_captcha;

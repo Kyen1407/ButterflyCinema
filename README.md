@@ -7,6 +7,9 @@ Dự án hỗ trợ quản lý toàn diện các nghiệp vụ rạp chiếu phi
 
 ---
 
+### 🏠 Home Page
+![Home Page](./Screenshots/Home1.png)
+
 ## 🚀 Tính năng nổi bật
 
 * **Quản lý rạp (Cinema):** Thêm, sửa, xóa, xem danh sách rạp.
@@ -45,10 +48,13 @@ ButterflyCinema/
 ├── Migrations/            # Các file migration của Entity Framework
 ├── Views/                 # Razor Pages (.cshtml)
 │   ├── Shared/            # Layouts, partial views dùng chung
-│   └── [ChứcNăng]/       # Các trang chức năng cụ thể
+│   └── [ChứcNăng]/		   # Các trang chức năng cụ thể
 ├── wwwroot/               # Static files (JS, CSS, images, fonts)
 │   └── Content/
 │       └── js/            # JavaScript cho từng chức năng
+│       └── css/           # Css cho từng chức năng
+│       └── img/           # Ảnh của dự án
+│       └── font/          # Font chữ cho dự án
 ├── appsettings.json       # File cấu hình (kết nối DB, logging, ...)
 ├── Program.cs             # Điểm khởi tạo ứng dụng
 └── README.md              # Tài liệu mô tả dự án
@@ -112,5 +118,5 @@ dotnet ef database update
 dotnet run
 ```
 
-* Truy cập: `http://localhost:5000` hoặc theo cổng bạn đã cấu hình.
+* Truy cập: `https://localhost:7116` hoặc theo cổng bạn đã cấu hình.
 

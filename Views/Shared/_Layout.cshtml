@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BUTTERFLY CINEMA</title>
     <script src="/Content/js/jquery-2.1.1.min.js"></script>
-    <script src="/Content/js/bootstrap.min.js"></script>
+    
     <link rel="icon" href="~/Content/img/logo6.png" type="image/x-icon">
     <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/css/global.css" rel="stylesheet">
@@ -16,6 +16,7 @@
     <link href="https://fonts.googleapis.com/css?family=Monoton&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.all.min.js"></script>
+    <script src="/Content/js/bootstrap.min.js"></script>
     
     @* <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> *@
@@ -59,13 +60,23 @@
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <a data-toggle="modal" data-target="#modalLogin">
-                                <p style="float: right; margin-top: 25px; color: white; cursor: pointer; margin-right: 0px;">Đăng nhập</p>
-                            </a>
+                            @if (Context.Session.GetString("UserName") != null)
+                            {
+                                <a href="/Account/Logout">
+                                    <p style="float: right; margin-top: 25px; color: white; cursor: pointer; margin-right: 0px;">Đăng xuất</p>
+                                </a>
+                                <p style="float: right; margin-top: 25px; color: white; margin-right: 30px;">Xin chào, @Context.Session.GetString("UserName")!</p>
+                            }
+                            else
+                            {
+                                <a data-toggle="modal" data-target="#modalLogin">
+                                    <p style="float: right; margin-top: 25px; color: white; cursor: pointer; margin-right: 0px;">Đăng nhập</p>
+                                </a>
 
-                            <a data-toggle="modal" data-target="#modalRegister">
-                                <p style="float: right; margin-top: 25px; color: white; cursor: pointer; margin-right: 30px;">Đăng ký</p>
-                            </a>
+                                <a data-toggle="modal" data-target="#modalRegister">
+                                    <p style="float: right; margin-top: 25px; color: white; cursor: pointer; margin-right: 30px;">Đăng ký</p>
+                                </a>
+                            }
                         </div>
                     </div>
                 </div>
@@ -370,11 +381,6 @@
             </div>
         </div>
     </section>
-
-    <script>
-        console.log("jQuery version: ", $.fn.jquery);
-        console.log("$.fn.modal is:", typeof $.fn.modal);
-    </script>
 
     <script src="~/Content/js/home.js"></script>
 </body>

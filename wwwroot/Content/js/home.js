@@ -22,6 +22,39 @@ var alphaNums = ['A', 'B', 'C', 'D', 'E', 'F', 'G',
     'x', 'y', 'z', '0', '1', '2', '3',
     '4', '5', '6', '7', '8', '9'];
 
+function hideModal(modalId) {
+    var modal = document.getElementById(modalId);
+    if (modal) {
+        // Cách 1: Sử dụng Bootstrap 5
+        if (typeof bootstrap !== 'undefined') {
+            var bsModal = bootstrap.Modal.getInstance(modal);
+            if (bsModal) {
+                bsModal.hide();
+            } else {
+                // Tạo instance mới nếu chưa có
+                var newModal = new bootstrap.Modal(modal);
+                newModal.hide();
+            }
+        }
+        // Cách 2: Sử dụng Bootstrap 4 với jQuery
+        else if (typeof $ !== 'undefined' && $.fn.modal) {
+            $(modal).modal('hide');
+        }
+        // Cách 3: Vanilla JavaScript fallback
+        else {
+            modal.style.display = 'none';
+            modal.classList.remove('show');
+            document.body.classList.remove('modal-open');
+
+            // Xóa backdrop nếu có
+            var backdrop = document.querySelector('.modal-backdrop');
+            if (backdrop) {
+                backdrop.remove();
+            }
+        }
+    }
+}
+
 // =====================================================================
 // DOCUMENT READY - KHỞI TẠO TẤT CẢ
 // =====================================================================
@@ -94,6 +127,9 @@ function bindAllEvents() {
     // Event cho đăng nhập (thay thế onclick)
     bindLoginEvents();
 
+    // Event cho đăng xuất
+    bindLogoutEvents();
+
     // Event cho đăng ký (thay thế onclick)
     bindRegisterEvents();
 
@@ -150,6 +186,20 @@ function bindLoginEvents() {
             handleLogin();
         }
     });
+}
+
+// =====================================================================
+// EVENT ĐĂNG XUẤT
+// =====================================================================
+function bindLogoutEvents() {
+    var logoutButton = document.getElementById('logoutButton');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', function (e) {
+            e.preventDefault();
+            handleLogout();
+        });
+        console.log("Đã gán event cho nút đăng xuất");
+    }
 }
 
 // =====================================================================
@@ -221,7 +271,7 @@ function handleLogin() {
                     showConfirmButton: false,
                     timer: 1500
                 }).then(() => {
-                    $('#modalLogin').modal('hide');
+                    hideModal('modalLogin');
                     window.location.href = '/Home/Index';
                 });
             } else {
@@ -238,9 +288,29 @@ function handleLogin() {
             console.error("Lỗi đăng nhập: ", error);
         },
         complete: function () {
-            // Khôi phục nút
             loginButton.textContent = originalText;
             loginButton.disabled = false;
+        }
+    });
+}
+
+// =====================================================================
+// XỬ LÝ ĐĂNG XUẤT
+// =====================================================================
+function handleLogout() {
+    Swal.fire({
+        title: 'Bạn có chắc chắn muốn đăng xuất?',
+        text: "Bạn sẽ cần đăng nhập lại để sử dụng các tính năng!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Đồng ý, đăng xuất!',
+        cancelButtonText: 'Hủy'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Nếu người dùng đồng ý, chuyển hướng đến URL đăng xuất
+            window.location.href = '/Account/Logout';
         }
     });
 }
@@ -327,7 +397,7 @@ function handleRegister() {
                     text: response.message || 'Vui lòng kiểm tra email của bạn để xác thực tài khoản.',
                     confirmButtonText: 'Đóng'
                 }).then(() => {
-                    $('#modalRegister').modal('hide');
+                    hideModal('modalRegister');
                     $('#modalRegister form')[0].reset();
                 });
             } else {
@@ -390,7 +460,7 @@ function handleForgotPasswordRequest() {
                 text: response.message || 'Nếu email của bạn tồn tại trong hệ thống, một liên kết đặt lại mật khẩu đã được gửi đến bạn.',
                 confirmButtonText: 'Đóng'
             }).then(() => {
-                $('#modalFogotPass').modal('hide');
+                hideModal('modalFogotPass');
                 $('#modalFogotPass form')[0].reset();
                 generate_captcha();
             });

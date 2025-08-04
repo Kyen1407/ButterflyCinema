@@ -1,15 +1,79 @@
 ﻿@{
     ViewData["Title"] = "Lỗi xác thực";
+    Layout = null;
 }
 
-<section class="main_content">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <h2 style="color: red; margin-top: 50px;">Lỗi!</h2>
-                <p style="font-size: 18px; margin-top: 20px;">@ViewBag.ErrorMessage</p>
-                <a href="/Home/Index" class="btn btn-primary" style="margin-top: 30px;">Về trang chủ</a>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BUTTERFLY CINEMA</title>
+    <link rel="icon" href="~/Content/img/logo6.png" type="image/x-icon">
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/css/global.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/font-awesome.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Paytone+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Monoton&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="/Content/js/jquery-2.1.1.min.js"></script>
+    <script src="/Content/js/bootstrap.min.js"></script>
+    <link href="~/Content/css/verification-error.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Floating butterflies -->
+    <div class="butterfly">🦋</div>
+    <div class="butterfly">🦋</div>
+    <div class="butterfly">🦋</div>
+    <div class="butterfly">🦋</div>
+
+    <!-- Error rain effect -->
+    <div class="error-rain" style="left: 20%; animation-delay: 0s;"></div>
+    <div class="error-rain" style="left: 40%; animation-delay: -0.3s;"></div>
+    <div class="error-rain" style="left: 60%; animation-delay: -0.6s;"></div>
+    <div class="error-rain" style="left: 80%; animation-delay: -0.9s;"></div>
+
+    <div class="error-container">
+        <!-- Decorative butterflies -->
+        <div class="decorative-butterfly top-left">🦋</div>
+        <div class="decorative-butterfly top-right">🦋</div>
+        <div class="decorative-butterfly bottom-left">🦋</div>
+        <div class="decorative-butterfly bottom-right">🦋</div>
+
+        <div class="logo-section">
+            <div class="cinema-logo">
+                <div class="butterfly-logo">
+                    <img src="~/Content/img/logo6.png" alt="Butterfly Cinema Logo" width="150" />
+                </div>
+            </div>
+            <div class="brand-name">Butterfly Cinema</div>
+            <div class="brand-subtitle">Where Stories Take Flight</div>
+        </div>
+
+        <div class="error-icon">
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+
+        <div class="error-content">
+            <h2 id="errorTitle">Có lỗi xảy ra!</h2>
+            <p id="errorMessage">Xin lỗi, đã có lỗi xảy ra trong quá trình xử lý. Vui lòng thử lại sau hoặc liên hệ với chúng tôi nếu lỗi vẫn tiếp tục.</p>
+            <div class="btn-container">
+                <a href="javascript:history.back()" class="btn btn-retry">
+                    <i class="fas fa-redo"></i>
+                    Thử lại
+                </a>
+                <a href="/Home/Index" class="btn btn-home">
+                    <i class="fas fa-home"></i>
+                    Trang chủ
+                </a>
             </div>
         </div>
     </div>
-</section>
+
+    <script src="~/Content/js/verification-error.js"></script>
+</body>
+</html>

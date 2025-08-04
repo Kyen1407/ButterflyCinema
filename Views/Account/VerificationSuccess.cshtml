@@ -1,15 +1,62 @@
 ﻿@{
     ViewData["Title"] = "Xác thực thành công";
+    Layout = null;
 }
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BUTTERFLY CINEMA</title>
+    <link rel="icon" href="~/Content/img/logo6.png" type="image/x-icon">
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/css/global.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/font-awesome.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Paytone+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Monoton&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="/Content/js/jquery-2.1.1.min.js"></script>
+    <script src="/Content/js/bootstrap.min.js"></script>
+    <link href="~/Content/css/verification-success.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Floating butterflies -->
+    <div class="butterfly">🦋</div>
+    <div class="butterfly">🦋</div>
+    <div class="butterfly">🦋</div>
+    <div class="butterfly">🦋</div>
 
-<section class="main_content">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <h2 style="color: green; margin-top: 50px;">Xác thực tài khoản thành công!</h2>
-                <p style="font-size: 18px; margin-top: 20px;">Tài khoản của bạn đã được xác thực. Bạn có thể đăng nhập ngay bây giờ.</p>
-                <a href="/Home/Index" class="btn btn-primary" style="margin-top: 30px;">Về trang chủ</a>
+    <div class="success-container">
+        <!-- Decorative butterflies -->
+        <div class="decorative-butterfly top-left">🦋</div>
+        <div class="decorative-butterfly top-right">🦋</div>
+        <div class="decorative-butterfly bottom-left">🦋</div>
+        <div class="decorative-butterfly bottom-right">🦋</div>
+
+        <div class="logo-section">
+            <div class="cinema-logo">
+                <div class="butterfly-logo">
+                    <img src="~/Content/img/logo6.png" alt="Butterfly Cinema Logo" width="150" />
+                </div>
             </div>
+            <div class="brand-name">Butterfly Cinema</div>
+            <div class="brand-subtitle">Where Stories Take Flight</div>
+        </div>
+
+        <div class="success-content">
+            <h2>Đăng ký thành công!</h2>
+            <p>Vui lòng xem email để xác thực tài khoản</p>
+            <a href="/Home/Index" class="btn btn-home">
+                <i class="fas fa-home"></i>
+                Trang chủ
+            </a>
         </div>
     </div>
-</section>
+
+    <script src="~/Content/js/verification-success.js"></script>
+</body>
+</html>

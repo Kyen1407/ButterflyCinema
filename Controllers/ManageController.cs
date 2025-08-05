@@ -1,7 +1,10 @@
 ﻿using ButterflyCinema.Models;
+using ButterflyCinema.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ButterflyCinema.Controllers
 {
@@ -717,30 +720,94 @@ namespace ButterflyCinema.Controllers
 
         //------------------------------------------------------------------------------------------------------------------
 
-        // Thêm món ăn
+        // Thêm combo
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateCombo(Combo combo)
+        public async Task<IActionResult> CreateCombo(CreateComboViewModel model)
         {
-            var fooodExists = _context.Combos.Any(c => c.ComboId == combo.ComboId);
-
-            if (fooodExists)
+            // Kiểm tra mã combo trùng
+            var comboExists = await _context.Combos.AnyAsync(c => c.ComboId == model.ComboId);
+            if (comboExists)
             {
-                return RedirectToAction("Error", new { errorMessage = "Mã thức ăn đã tồn tại!", tab = "food" });
+                ModelState.AddModelError("ComboId", "Mã combo đã tồn tại!");
+            }
+
+            for (int i = 0; i < (model.ComboItems?.Count ?? 0); i++)
+            {
+                var item = model.ComboItems[i];
+                if (string.IsNullOrEmpty(item?.ConcessionId) || item.Quantity <= 0)
+                {
+                    ModelState.Remove($"ComboItems[{i}].ConcessionId");
+                    ModelState.Remove($"ComboItems[{i}].Quantity");
+                }
+            }
+
+            // Lọc ra các item hợp lệ
+            var validItems = (model.ComboItems ?? new List<ComboItemViewModel>())
+                .Where(i => !string.IsNullOrEmpty(i.ConcessionId) && i.Quantity > 0)
+                .ToList();
+
+            // Món ăn trùng lặp
+            if (validItems.Count != validItems.Select(i => i.ConcessionId).Distinct().Count())
+            {
+                ModelState.AddModelError("ComboItems", "Mỗi món ăn chỉ được chọn một lần trong combo.");
+            }
+
+            // Tổng số lượng ít hơn 2
+            if (validItems.Sum(i => i.Quantity) < 2)
+            {
+                ModelState.AddModelError("ComboItems", "Tổng số lượng món ăn trong combo phải ít nhất là 2.");
             }
 
             if (ModelState.IsValid)
             {
-                combo.ComboStatus = new BitArray(1);
-                combo.ComboStatus[0] = (Request.Form["ComboStatus"] == "1");
+                // Thêm combo
+                var newCombo = new Combo
+                {
+                    ComboId = model.ComboId,
+                    ComboName = model.ComboName,
+                    ComboPrice = model.ComboPrice,
+                    ComboStatus = new BitArray(new[] { model.ComboStatus == "1" })
+                };
+                _context.Combos.Add(newCombo);
 
-                _context.Combos.Add(combo);
-                _context.SaveChanges();
+                // Thêm các món combo
+                foreach (var item in validItems)
+                {
+                    var comboItem = new Comboitem
+                    {
+                        ComboId = model.ComboId,
+                        ConcessionId = item.ConcessionId,
+                        Quantity = item.Quantity
+                    };
+                    _context.Comboitems.Add(comboItem);
+                }
+
+                await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Thêm combo thành công!";
 
                 return RedirectToAction("Manage", new { tab = "food" });
             }
 
-            return View("Error", new { errorMessage = "Dữ liệu không hợp lệ", tab = "food" });
+            // Nếu có lỗi → gom tất cả lỗi để truyền về ViewBag
+            var allErrors = ModelState.Values
+                .SelectMany(v => v.Errors)
+                .Select(e => e.ErrorMessage)
+                .ToList();
+
+            ViewBag.FormError = string.Join(" ", allErrors); // Ghép lỗi lại thành 1 chuỗi
+
+            // Load lại ViewBag cần thiết
+            ViewBag.Cinemas = await _context.Cinemas.ToListAsync();
+            ViewBag.Rooms = await _context.Rooms.ToListAsync();
+            ViewBag.Movies = await _context.Movies.ToListAsync();
+            ViewBag.Showtime = await _context.Showtimes.Include(s => s.Movie).ToListAsync();
+            ViewBag.Concessions = await _context.Concessions.ToListAsync();
+            ViewBag.Combos = await _context.Combos.ToListAsync();
+            ViewBag.ComboItems = await _context.Comboitems.ToListAsync();
+            ViewBag.ActiveTab = "food";
+
+            return View("Manage", model); 
         }
 
         // Hiển thị xác nhận xóa

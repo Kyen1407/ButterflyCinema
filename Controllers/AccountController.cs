@@ -166,7 +166,7 @@ namespace ButterflyCinema.Controllers
             if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(token))
             {
                 // Hoặc trả về View lỗi
-                return RedirectToAction("VerificationError", new { message = "Liên kết xác thực không hợp lệ." });
+                return RedirectToAction("VerificationError", new { type = "register" });
             }
 
             var user = await _context.Users.SingleOrDefaultAsync(u => u.UserId == userId);
@@ -174,7 +174,7 @@ namespace ButterflyCinema.Controllers
             if (user == null || user.IsEmailVerified || user.EmailVerificationToken != token)
             {
                 // Hoặc trả về View lỗi
-                return RedirectToAction("VerificationError", new { message = "Liên kết xác thực không hợp lệ hoặc đã được sử dụng." });
+                return RedirectToAction("VerificationError", new { type = "register" });
             }
 
             user.IsEmailVerified = true;
@@ -187,20 +187,11 @@ namespace ButterflyCinema.Controllers
 
         public IActionResult VerificationSuccess()
         {
-            var cinemas = _context.Cinemas.ToList();
-
-            ViewBag.Cinemas = cinemas;
-
             return View();
         }
 
         public IActionResult VerificationError(string message)
         {
-            ViewBag.ErrorMessage = message;
-            var cinemas = _context.Cinemas.ToList();
-
-            ViewBag.Cinemas = cinemas;
-
             return View();
         }
 
@@ -290,7 +281,6 @@ namespace ButterflyCinema.Controllers
             return Json(new { success = true, message = "Mật khẩu của bạn đã được đặt lại thành công! Bạn có thể đăng nhập ngay bây giờ." });
         }
 
-
         // Hàm để hash mật khẩu (nên sử dụng thư viện như BCrypt.NET cho mục đích bảo mật thực tế)
         private string HashPassword(string password)
         {
@@ -304,6 +294,20 @@ namespace ButterflyCinema.Controllers
                 }
                 return builder.ToString();
             }
+        }
+
+        public IActionResult Logout()
+        {
+            // Xóa tất cả các khóa trong session
+            HttpContext.Session.Remove("UserId");
+            HttpContext.Session.Remove("UserName");
+            HttpContext.Session.Remove("UserRole");
+
+            // Hoặc nếu bạn muốn xóa toàn bộ session:
+            // HttpContext.Session.Clear();
+
+            // Chuyển hướng người dùng về trang chủ
+            return RedirectToAction("Index", "Home");
         }
 
         // Request DTOs
